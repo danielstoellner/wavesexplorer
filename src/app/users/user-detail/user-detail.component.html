@@ -1,0 +1,20 @@
+<h3>Float Label</h3>
+<div class="user_input" align="left">
+  <span class="ui-float-label">
+      <input id="float-input" type="text" size="30" pInputText>
+      <label for="float-input">Username</label>
+  </span>
+</div>
+<div *ngIf="user">
+
+
+  <h2>{{ user.surename | uppercase }} {{ user.givenname | uppercase}} Details</h2>
+  <div><span>id: </span>{{user.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="user.surename" placeholder="name"/>
+    </label>
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>

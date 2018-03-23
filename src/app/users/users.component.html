@@ -1,0 +1,17 @@
+<h2>Users List</h2>
+
+<p-dataView [value]="users">
+  <ng-template let-user pTemplate="listItem">
+    <div>
+      {{user.surename}}
+    </div>
+  </ng-template>
+</p-dataView>
+
+<ul class="users">
+  <li *ngFor="let user of users | slice:0:10">
+    <a routerLink="/users/detail/{{user.id}}">
+      <span class="badge">{{user.id}}</span> {{user.surename}} {{user.givenname}}
+    </a>
+  </li>
+</ul>
