@@ -3,9 +3,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {SettingsService} from "../common/settings.service";
 import {MessageService} from "../message.service";
 import {Observable} from "rxjs/Observable";
-import {Peer, PeerModel} from "./peer";
+import {Peer, PeerArray, PeerModel} from "./peer";
 import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
+import {Address} from "../addresses/address";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,6 +29,13 @@ export class PeerService {
   getPeers (): Promise<PeerModel> {
     this.log("call " + this.settingService.serverPath + this.peersUrl);
     return this.http.get<PeerModel>(this.settingService.serverPath + this.peersUrl).toPromise();
+  }
+
+  getPeersObservable(): Observable<PeerModel[]> {
+    this.log("call getPeersObservable " + this.settingService.serverPath + this.peersUrl);
+    return this.http.get(this.settingService.serverPath + this.peersUrl)
+                    .map((res : Response) => res.json())
+      .catch((error : any) => Observable.throw('Server error'));
   }
 
   /**

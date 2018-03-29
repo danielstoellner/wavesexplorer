@@ -30,3 +30,7 @@ nav a.active {
 p-footer {
   text-align: center;
 }
+
+ui-widget {
+  font-size: xx-small;
+}

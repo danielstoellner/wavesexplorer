@@ -1,0 +1,50 @@
+<h2 *ngIf="block">Details zu Block {{ block.height }}</h2>
+<p><button (click)="goBack()">go back</button></p>
+<table *ngIf="block" width="100%">
+  <tr>
+    <th align="right">Details</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td align="right">Height</td>
+    <td>
+      <button (click)="prev()">prev</button>
+      {{block.height}}
+      <button (click)="next()">next</button>
+    </td>
+
+  </tr>
+  <tr>
+    <td align=right>Version</td>
+    <td>{{block.version}}</td>
+  </tr>
+  <tr>
+    <td align="right">Timestamp</td>
+    <td>{{block.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}</td>
+  </tr>
+  <tr>
+    <td align="right">Generator</td>
+    <td>{{block.generator}}</td>
+  </tr>
+  <tr>
+    <td align="right">Signature</td>
+    <td>{{block.signature}}</td>
+  </tr>
+  <tr>
+    <td align="right">Size</td>
+    <td>{{block.blocksize.toString()}}</td>
+  </tr>
+  <tr>
+    <td align="right">Fee</td>
+    <td>{{block.fee}}</td>
+  </tr>
+  <tr>
+    <td align="right">TransactionCount</td>
+    <td>{{block.transactionCount}}</td>
+  </tr>
+  <tr>
+    <td align="right">Reference</td>
+    <td>{{block.reference}}</td>
+  </tr>
+
+</table>

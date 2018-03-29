@@ -7,4 +7,10 @@ export interface PeerModel {
   peers: Peer[];
 }
 
+export interface PeerArray{
+  peers: {
+    peers: Peer[];
+  };
+}
+
 

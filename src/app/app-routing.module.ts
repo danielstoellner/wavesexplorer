@@ -6,12 +6,14 @@ import { UsersComponent } from './users/users.component';
 import {PeerComponent} from "./peer/peer.component";
 import {AddressesComponent} from "./addresses/addresses.component";
 import {BlocksComponent} from "./blocks/blocks.component";
+import {BlockDetailComponent} from "./blocks/block-detail/block-detail.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'peer', component: PeerComponent },
   { path: 'blocks', component: BlocksComponent },
+  { path: 'detail/:height', component: BlockDetailComponent },
   { path: 'addresses', component: AddressesComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/detail/:id', component: UserDetailComponent },
