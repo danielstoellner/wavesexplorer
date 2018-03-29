@@ -1,3 +1,7 @@
 export class Address {
-    address: string;
+  address: string;
+  regular: number;
+  generating: number;
+  available: number;
+  effective: number;
 }

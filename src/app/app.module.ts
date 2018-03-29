@@ -34,6 +34,9 @@ import {UtilsModule} from "./utils/utils.module";
 import { BlockDetailComponent } from './blocks/block-detail/block-detail.component';
 import {TreeTableModule} from 'primeng/treetable';
 import {TableModule} from 'primeng/table';
+import {CardModule} from 'primeng/card';
+import { TransactionDetailComponent } from './blocks/transaction-detail/transaction-detail.component';
+import { AddressDetailComponent } from './addresses/address-detail/address-detail.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import {TableModule} from 'primeng/table';
     AddressesComponent,
     BlocksComponent,
     BlockDetailComponent,
+    TransactionDetailComponent,
+    AddressDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ import {TableModule} from 'primeng/table';
     DataTableModule,
     TreeTableModule,
     TableModule,
+    CardModule,
   ],
   providers: [
     PeerService,

@@ -6,5 +6,5 @@ export interface ISettings {
 
 @Injectable()
 export class SettingsService implements ISettings {
-  public serverPath = 'http://se.suroot.com:6869/';
+  public serverPath = 'https://nodes.wavesnodes.com/';
 }

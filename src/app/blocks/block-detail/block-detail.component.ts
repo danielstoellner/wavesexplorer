@@ -10,7 +10,8 @@ import {Block} from "../block";
   styleUrls: ['./block-detail.component.css']
 })
 export class BlockDetailComponent implements OnInit {
-  @Input() block: Block;
+  @Input()
+  block: Block;
   height: number;
 
   constructor(
@@ -45,4 +46,7 @@ export class BlockDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+
+
 }
