@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {MenuModule} from 'primeng/menu';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +9,12 @@ import {MenuModule} from 'primeng/menu';
 export class AppComponent {
   title = 'Waves Explorer';
   items: MenuItem[];
+  logo: string;
+
+  constructor() {
+    this.logo = '/assets/images/waves_logo.svg';
+  }
+
 
   ngOnInit() {
     this.items = [{

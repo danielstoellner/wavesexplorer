@@ -23,12 +23,17 @@ import {MegaMenuModule} from 'primeng/megamenu';
 import {MenuModule} from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import {DataViewModule} from 'primeng/dataview';
+import {DataTableModule} from 'primeng/datatable';
 import { PeerComponent } from './peer/peer.component';
 import {PeerService} from "./peer/peer.service";
 import { AddressesComponent } from './addresses/addresses.component';
 import {AddressesService} from "./addresses/addresses.service";
 import { BlocksComponent } from './blocks/blocks.component';
-import {BlooksService} from "./blocks/blooks.service";
+import {BlocksService} from "./blocks/blocks.service";
+import {UtilsModule} from "./utils/utils.module";
+import { BlockDetailComponent } from './blocks/block-detail/block-detail.component';
+import {TreeTableModule} from 'primeng/treetable';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -41,6 +46,7 @@ import {BlooksService} from "./blocks/blooks.service";
     PeerComponent,
     AddressesComponent,
     BlocksComponent,
+    BlockDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,11 @@ import {BlooksService} from "./blocks/blooks.service";
     MenuModule,
     MenubarModule,
     DataViewModule,
-    DataListModule
+    DataListModule,
+    UtilsModule,
+    DataTableModule,
+    TreeTableModule,
+    TableModule,
   ],
   providers: [
     PeerService,
@@ -66,7 +76,7 @@ import {BlooksService} from "./blocks/blooks.service";
     SettingsService,
     HttpService,
     UserService,
-    BlooksService
+    BlocksService
   ],
   bootstrap: [AppComponent]
 })

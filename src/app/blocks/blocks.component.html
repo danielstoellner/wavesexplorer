@@ -1,3 +1,19 @@
-<p>
-  blocks works!
-</p>
+
+<h1>The latest Block from Wave is {{height}}</h1>
+
+
+<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
+
+<p-dataTable [value]="blocks" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
+  <p-header>List of Blocks</p-header>
+  <p-footer>There are 50 Blocks</p-footer>
+  <p-column field="height" header="height" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}">
+    <ng-template let-row="rowData" pTemplate type="body">
+      <a routerLink="/detail/{{row.height}}">{{row.height}}</a>
+    </ng-template>
+  </p-column>
+  <p-column field="timestamp" header="timestamp" [style]="{'width':'150px', 'text-align': 'center'}"></p-column>
+  <p-column field="generator" header="generator"></p-column>
+  <p-column field="blocksize" header="blocksize"[style]="{'width':'100px', 'text-align': 'center'}"></p-column>
+
+</p-dataTable>

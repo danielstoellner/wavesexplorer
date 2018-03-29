@@ -1,9 +1,9 @@
-<h2>Top Drawings</h2>
+<h2>HOME</h2>
 <div>
-  <a *ngFor="let drawing of drawings | slice:0:10" class="col-1-4"
-    routerLink="/detail/{{drawing.id}}">
+  <a *ngFor="let block of blocks | slice:0:10" class="col-1-4"
+    routerLink="/detail/{{block.height}}">
     <div class="module drawing">
-      <h4>{{drawing.rbiPartNumber}}</h4>
+      <h4>{{block.height}}</h4>
     </div>
   </a>
 
