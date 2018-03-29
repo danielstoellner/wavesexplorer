@@ -1,3 +1,4 @@
+import {Transaction} from "./transaction";
 
 export class Block {
   version: number;
@@ -7,6 +8,7 @@ export class Block {
   signature: string;
   transactionCount: number;
   fee: number;
+  transactions: Transaction[];
   blocksize: number;
   height: number;
 }
@@ -18,3 +20,4 @@ export class BlocksModel {
 export class BlockHeight {
   height: number;
 }
+

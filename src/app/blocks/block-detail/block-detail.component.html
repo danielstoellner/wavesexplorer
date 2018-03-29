@@ -24,7 +24,9 @@
   </tr>
   <tr>
     <td align="right">Generator</td>
-    <td>{{block.generator}}</td>
+    <td>
+      <a routerLink="/addresses/detail/{{block.generator}}">{{block.generator}}</a>
+    </td>
   </tr>
   <tr>
     <td align="right">Signature</td>
@@ -46,5 +48,75 @@
     <td align="right">Reference</td>
     <td>{{block.reference}}</td>
   </tr>
-
 </table>
+
+<br>
+<div *ngIf="block" class="transactions">
+<p-panel *ngFor="let transaction of block.transactions; index as i" header="Transaction {{i+1}} of {{block.transactionCount}}" [toggleable]="true" [collapsed]="true" [style]="{'margin-bottom':'0px', 'width':'100%'}">
+
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <span class="ui-panel-title" style="font-size:10px;display:inline-block;margin-top:2px">Sender: {{transaction.sender}}</span><br>
+      <span class="ui-panel-title" style="font-size:10px;display:inline-block;margin-top:2px"><b>Recipient:</b> {{transaction.recipient}}</span>
+    </div>
+  </p-header>
+
+  <table class="transaction">
+    <tr>
+      <th align="right">Details</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td align=right>Type</td>
+      <td>{{transaction.type}}</td>
+    </tr>
+    <tr>
+      <td align="right">Id</td>
+      <td>{{transaction.id}}</td>
+    </tr>
+    <tr>
+      <td align="right">Sender</td>
+      <td>{{transaction.sender}}</td>
+    </tr>
+    <tr>
+      <td align="right">SenderPublicKey</td>
+      <td>{{transaction.senderPublicKey}}</td>
+    </tr>
+    <tr>
+      <td align="right">Fee</td>
+      <td>{{transaction.fee}}</td>
+    </tr>
+    <tr>
+      <td align="right">Timestamp</td>
+      <td>{{transaction.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}</td>
+    </tr>
+    <tr>
+      <td align="right">signature</td>
+      <td>{{transaction.signature}}</td>
+    </tr>
+    <tr>
+      <td align="right">recipient</td>
+      <td>{{transaction.recipient}}</td>
+    </tr>
+    <tr>
+      <td align="right">assetId</td>
+      <td>{{transaction.assetId}}</td>
+    </tr>
+    <tr>
+      <td align="right">amount</td>
+      <td>{{transaction.amount}}</td>
+    </tr>
+    <tr>
+      <td align="right">feeAsset</td>
+      <td>{{transaction.feeAsset}}</td>
+    </tr>
+    <tr>
+      <td align="right">attachment</td>
+      <td>{{transaction.attachment}}</td>
+    </tr>
+  </table>
+</p-panel>
+</div>
+
+
+

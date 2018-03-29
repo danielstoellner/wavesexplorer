@@ -7,6 +7,7 @@ import {Peer} from "../peer/peer";
 import {Observable} from "rxjs/Observable";
 import {Address} from "./address";
 import {of} from "rxjs/observable/of";
+import {Transaction} from "../blocks/transaction";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,6 +33,27 @@ export class AddressesService {
       );
   }
 
+  /** GET hero by id. Will 404 if id not found */
+  getBalance(address: string): Observable<Address> {
+    const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
+    this.log("call " + url);
+    return this.http.get<Address>(url).pipe(
+        tap(_ => this.log(`fetched balance=${address}`)),
+        catchError(this.handleError<Address>('getAddresses'))
+    );
+  }
+
+  /** GET hero by id. Will 404 if id not found */
+  getTransactions(address: string, count: number): Observable<Transaction[]> {
+    this.log("call " + address + count);
+    const url = `${this.settingService.serverPath}transactions/address/${address}/limit/${count}`;
+    this.log("call " + url);
+    return this.http.get<Transaction[]>(url).pipe(
+      tap(_ => this.log(`fetched transactions=${address}`)),
+      catchError(this.handleError<Transaction[]>('getAddressTransactions'))
+    );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -54,6 +76,6 @@ export class AddressesService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    this.messageService.add('PeerService: ' + message);
+    this.messageService.add('AddressService: ' + message);
   }
 }

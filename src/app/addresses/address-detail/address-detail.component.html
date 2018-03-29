@@ -1,0 +1,51 @@
+<h2 *ngIf="address">Details zu Address {{ address.address }}</h2>
+<p><button (click)="goBack()">go back</button></p>
+<table *ngIf="address" width="100%">
+  <tr>
+    <th align="right" width="20%">Details</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td align=right>Regular Balance</td>
+    <td>{{address.regular/100000000 | number:'0.0-10'}}</td>
+  </tr>
+  <tr>
+    <td align="right">Generating Balance</td>
+    <td>{{address.generating/100000000 | number:'0.0-4'}}</td>
+  </tr>
+  <tr>
+    <td align="right">Available Balance</td>
+    <td>{{address.available/100000000 | number:'0.0-10'}}</td>
+  </tr>
+  <tr>
+    <td align="right">Effective Balance</td>
+    <td>{{address.effective/100000000 | number:'0.0-4'}}</td>
+  </tr>
+</table>
+
+<div class="transactions"></div>
+<p-dataTable [value]="transactions[0]" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [style]="{'font-size': '80%'}">
+  <p-header>List of Transactions</p-header>
+  <p-footer>There are 100 Transactions</p-footer>
+  <p-column field="id" header="id" [sortable]="true" [style]="{'width':'20%', 'text-align': 'left', 'font-size': '80%'}"></p-column>
+  <p-column field="type" header="type" [style]="{'width':'5%', 'text-align': 'center'}"></p-column>
+  <p-column field="timestamp" header="Date" [sortable]="true">
+    <ng-template let-col let-row='rowData' pTemplate type="body">
+      {{row[col.field] | date:'dd. MMMM yyyy @ HH:mm'}}
+    </ng-template>
+  </p-column>
+  <p-column field="sender" header="sender"[style]="{'width':'250px', 'text-align': 'right', 'font-size': '80%'}">
+  </p-column>
+  <p-column field="" header=""[style]="{'width':'3%', 'text-align': 'center'}">
+    <ng-template let-col let-row='rowData' pTemplate type="body">
+      &#x21E8;
+    </ng-template>
+  </p-column>
+  <p-column field="recipient" header="recipient"[style]="{'width':'250px', 'text-align': 'left', 'font-size': '80%'}"></p-column>
+  <p-column field="amount" header="amount"[style]="{'width':'100px', 'text-align': 'left'}"></p-column>
+  <p-column field="recipient" header="recipient"[style]="{'width':'250px', 'text-align': 'left', 'font-size': '80%'}"></p-column>
+</p-dataTable>
+
+<br>
+
+

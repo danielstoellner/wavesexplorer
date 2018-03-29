@@ -40,7 +40,7 @@ export class BlocksService {
       .toPromise();
   }
 
-  /** GET hero by id. Will 404 if id not found */
+  /** GET Block by height. Will 404 if id not found */
   getBlockAt(height: number): Observable<Block> {
     const url = `${this.settingService.serverPath + this.blockUrl }at/${height}`;
     return this.http.get<Block>(url).pipe(

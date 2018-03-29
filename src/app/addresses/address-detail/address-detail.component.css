@@ -2,10 +2,11 @@ th {
   color: #0055FF;
 }
 
-
 a {
   color: #0055FF;
 }
+
+
 
 td, th {
   border: 0px solid #dddddd;
@@ -15,4 +16,5 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 transactions {
   color: #888888;
+
 }
