@@ -8,6 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { MessageService } from '../message.service';
 import {SettingsService} from '../common/settings.service';
+import {Group} from "../groups/group";
 
 
 const httpOptions = {
@@ -21,32 +22,61 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private settingService: SettingsService
+    private settingService: SettingsService,
   ) { }
 
   /** GET users from the server */
   getUsers (): Observable<User[]> {
-    return this.http.get<User[]>(this.settingService.serverPath + this.usersUrl )
+    return this.http.get<User[]>(this.settingService.wavesBackendAPI + this.usersUrl )
       .pipe(
-        tap(heroes => this.log(`fetched users`)),
+        tap(users => this.log(`fetched users`)),
         catchError(this.handleError('getUsers', []))
       );
   }
 
   /** GET user by id. Will 404 if id not found */
   getUser(id: number): Observable<User> {
-    const url = `${this.settingService.serverPath + this.usersUrl}/${id}`;
+    const url = `${this.settingService.wavesBackendAPI + this.usersUrl}/${id}`;
     return this.http.get<User>(url).pipe(
       tap(_ => this.log(`fetched user id=${id}`)),
       catchError(this.handleError<User>(`getUser id=${id}`))
     );
   }
 
+  getGroups(id: number): Observable<Group[]> {
+    const url = `${this.settingService.wavesBackendAPI + this.usersUrl}/${id}`;
+    return this.http.get<Group[]>(url).pipe(
+      tap(_ => this.log(`fetched group id=${id}`)),
+      catchError(this.handleError<Group[]>(`getGroup id=${id}`))
+    );
+  }
+
+  /** POST: add a new User to the server */
+  addUser (user: User): Observable<User> {
+    console.log('addUser');
+    console.log(this.settingService.wavesBackendAPI + this.usersUrl);
+    return this.http.post<User>(this.settingService.wavesBackendAPI + this.usersUrl, user, httpOptions).pipe(
+      tap((user: User) => this.log(`added user w/ id=${user.id}`)),
+      catchError(this.handleError<User>('addUser'))
+    );
+  }
+
   /** PUT: update the user on the server */
   updateUser (user: User): Observable<any> {
-    return this.http.put(this.settingService.serverPath + this.usersUrl, user, httpOptions).pipe(
+    return this.http.put(this.settingService.wavesBackendAPI + this.usersUrl + "/"+ user.id, user, httpOptions).pipe(
       tap(_ => this.log(`updated user id=${user.id}`)),
       catchError(this.handleError<any>('updateUser'))
+    );
+  }
+
+  /** DELETE: delete the user from the server */
+  deleteUser (user: User | number): Observable<User> {
+    const id = typeof user === 'number' ? user : user.id;
+    const url = `${this.settingService.wavesBackendAPI + this.usersUrl}/${id}`;
+
+    return this.http.delete<User>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted user id=${id}`)),
+      catchError(this.handleError<User>('deleteUser'))
     );
   }
 

@@ -8,6 +8,8 @@ import {AddressesComponent} from "./addresses/addresses.component";
 import {BlocksComponent} from "./blocks/blocks.component";
 import {BlockDetailComponent} from "./blocks/block-detail/block-detail.component";
 import {AddressDetailComponent} from "./addresses/address-detail/address-detail.component";
+import {GroupDetailComponent} from "./groups/group-detail/group-detail.component";
+import {GroupsComponent} from "./groups/groups.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'addresses/detail/:address', component: AddressDetailComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/detail/:id', component: UserDetailComponent },
+  { path: 'groups', component: GroupsComponent },
+  { path: 'groups/detail/:id', component: GroupDetailComponent },
 ];
 
 @NgModule({
