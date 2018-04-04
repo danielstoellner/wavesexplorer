@@ -1,20 +1,54 @@
-<h3>Float Label</h3>
-<div class="user_input" align="left">
-  <span class="ui-float-label">
-      <input id="float-input" type="text" size="30" pInputText>
-      <label for="float-input">Username</label>
-  </span>
-</div>
 <div *ngIf="user">
+  <h1>Details {{ user.surename }} </h1>
+  <button pButton type="button" (click)="save()" label="Save changes" class="ui-button-success"></button>
+  <button pButton type="button" (click)="delete(user)" label="Delete User"  class="ui-button-danger"></button>
 
-
-  <h2>{{ user.surename | uppercase }} {{ user.givenname | uppercase}} Details</h2>
-  <div><span>id: </span>{{user.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="user.surename" placeholder="name"/>
-    </label>
-  </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
+  <p><button (click)="goBack()">go back</button></p>
+  <table>
+    <tr>
+      <th align="left" width="10px">Details</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        Givenname
+      </td>
+      <td>
+        <div class="ui-inputgroup">
+          <input type="text" size="20" pInputText [(ngModel)]="user.givenname" placeholder="Givenname">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Surename
+      </td>
+      <td>
+        <div class="ui-inputgroup">
+          <input type="text" size="20" pInputText [(ngModel)]="user.surename" placeholder="Surename">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Address
+      </td>
+      <td>
+        <div class="ui-inputgroup">
+          <input type="text" size="40" pInputText [(ngModel)]="user.address" placeholder="Address">
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+<div *ngIf="user">
+  <p-pickList [source]="availableGroups" [target]="user.squads" [showSourceControls]="false" [showTargetControls]="false"
+              sourceHeader="Available Groups" targetHeader="Member of" [responsive]="true" >
+    <ng-template let-group pTemplate="item">
+      <div class="ui-helper-clearfix">
+        <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{group.name}}</div>
+      </div>
+    </ng-template>
+  </p-pickList>
 </div>

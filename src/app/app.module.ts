@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import {FormGroup, FormsModule} from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +37,11 @@ import {TableModule} from 'primeng/table';
 import {CardModule} from 'primeng/card';
 import { TransactionDetailComponent } from './blocks/transaction-detail/transaction-detail.component';
 import { AddressDetailComponent } from './addresses/address-detail/address-detail.component';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupDetailComponent } from './groups/group-detail/group-detail.component';
+import {GrowlModule} from 'primeng/growl';
+import {GroupsService} from "./groups/group.service";
+import {PickListModule} from 'primeng/picklist';
 
 @NgModule({
   declarations: [
@@ -52,6 +57,9 @@ import { AddressDetailComponent } from './addresses/address-detail/address-detai
     BlockDetailComponent,
     TransactionDetailComponent,
     AddressDetailComponent,
+    GroupsComponent,
+    GroupDetailComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -74,6 +82,8 @@ import { AddressDetailComponent } from './addresses/address-detail/address-detai
     TreeTableModule,
     TableModule,
     CardModule,
+    GrowlModule,
+    PickListModule,
   ],
   providers: [
     PeerService,
@@ -82,7 +92,8 @@ import { AddressDetailComponent } from './addresses/address-detail/address-detai
     SettingsService,
     HttpService,
     UserService,
-    BlocksService
+    BlocksService,
+    GroupsService,
   ],
   bootstrap: [AppComponent]
 })

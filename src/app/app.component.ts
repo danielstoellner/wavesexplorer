@@ -15,24 +15,25 @@ export class AppComponent {
     this.logo = '/assets/images/waves_logo.svg';
   }
 
-
   ngOnInit() {
     this.items = [{
-        label: 'Home', icon: 'fa-home',
-      },
+      label: 'Home', icon: 'fa-home',
+    },
+      {label: 'blocks', icon: 'fa-download', routerLink: ['/blocks']},
+      {label: 'peer', icon: 'fa-adjust', routerLink: ['/peer']},
+      {label: 'nodes', icon: 'fa-server', routerLink: ['/nodes']},
+      {label: 'wallet', icon: 'fa-address-book', url: 'https://beta.wavesplatform.com/'},
       {
         label: 'Management', icon: 'fa-server',
         items: [
-          {label: 'dashboard', routerLink: ['/dashboard']},
-          {label: 'blocks', routerLink: ['/blocks']},
-          {label: 'peer', routerLink: ['/peer']},
           {label: 'address', routerLink: ['/addresses']}
-          ]
+        ]
       },
       {
         label: 'Settings', icon: 'fa-gears',
-        items: [{
-                label: 'User', routerLink: ['/users']
+        items: [
+          {label: 'User', routerLink: ['/users']},
+          {label: 'Group', routerLink: ['/groups']
         }]
       }
     ];

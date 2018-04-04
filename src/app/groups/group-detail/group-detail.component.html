@@ -1,0 +1,33 @@
+<div *ngIf="group">
+  <h1>Details {{ group.name }} </h1>
+  <button pButton type="button" (click)="save()" label="Save changes" class="ui-button-success"></button>
+  <button pButton type="button" (click)="delete(group)" label="Delete Group"  class="ui-button-danger"></button>
+
+  <p><button (click)="goBack()">go back</button></p>
+  <table>
+    <tr>
+      <th align="left" width="10px">Details</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        Currency
+      </td>
+      <td>
+        <div class="ui-inputgroup">
+          <input type="text" size="20" pInputText [(ngModel)]="group.currency" placeholder="Currency">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Name
+      </td>
+      <td>
+        <div class="ui-inputgroup">
+          <input type="text" size="20" pInputText [(ngModel)]="group.name" placeholder="Name">
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
