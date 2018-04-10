@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Peer, PeerArray, PeerModel} from "./peer";
+import {Peer, PeerModel} from "./peer";
 import {PeerService} from "./peer.service";
 
 @Component({
@@ -8,7 +8,8 @@ import {PeerService} from "./peer.service";
   styleUrls: ['./peer.component.css']
 })
 export class PeerComponent implements OnInit {
-  peers: PeerModel[];
+  peersModel: PeerModel[];
+  stacked: boolean;
 
   constructor(
     private peerService: PeerService
@@ -18,19 +19,12 @@ export class PeerComponent implements OnInit {
     this.getPeers();
   }
 
-  async getPeers2() {
-    this.peerService.getPeersObservable()
-      .subscribe(peer => this.peers = peer);
-    console.log(this.peers);
+  getPeers(): void {
+    this.peerService.getPeers()
+      .subscribe(peers => this.peersModel = peers);
   }
 
-  async getPeers() {
-    const result: PeerModel = await this.peerService.getPeers();
-    result.peers.forEach(p => {
-      console.log('adress: ' + p.address + ' lastSeen: ' + p.lastSeen);
-    });
-    console.log(result);
-
+  toggle() {
+    this.stacked = !this.stacked;
   }
-
 }

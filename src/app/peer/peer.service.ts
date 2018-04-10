@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {SettingsService} from "../common/settings.service";
 import {MessageService} from "../message.service";
 import {Observable} from "rxjs/Observable";
-import {Peer, PeerArray, PeerModel} from "./peer";
+import {Peer, PeerModel} from "./peer";
 import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
 import {Address} from "../addresses/address";
@@ -18,7 +18,7 @@ class Peers {
 @Injectable()
 export class PeerService {
 
-  private peersUrl = 'peers/all';
+  private peersUrl = 'peers/connected';
 
   constructor(
     private http: HttpClient,
@@ -26,16 +26,13 @@ export class PeerService {
     private settingService: SettingsService
   ) { }
 
-  getPeers (): Promise<PeerModel> {
-    this.log("call " + this.settingService.serverPath + this.peersUrl);
-    return this.http.get<PeerModel>(this.settingService.serverPath + this.peersUrl).toPromise();
-  }
-
-  getPeersObservable(): Observable<PeerModel[]> {
-    this.log("call getPeersObservable " + this.settingService.serverPath + this.peersUrl);
-    return this.http.get(this.settingService.serverPath + this.peersUrl)
-                    .map((res : Response) => res.json())
-      .catch((error : any) => Observable.throw('Server error'));
+  /** GET peers from the server */
+  getPeers (): Observable<PeerModel[]> {
+    return this.http.get<PeerModel[]>(this.settingService.serverPath + this.peersUrl )
+      .pipe(
+        tap(peers => this.log(`fetched peers`)),
+        catchError(this.handleError('getPeers', []))
+      );
   }
 
   /**
