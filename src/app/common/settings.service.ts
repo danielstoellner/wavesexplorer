@@ -7,5 +7,5 @@ export interface ISettings {
 @Injectable()
 export class SettingsService implements ISettings {
   public serverPath = 'https://nodes.wavesplatform.com/';
-  public wavesBackendAPI = 'http://localhost:8080/';
+  public wavesBackendAPI = 'http://wavebackend.suroot.com:8080/';
 }
