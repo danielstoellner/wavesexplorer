@@ -1,6 +1,8 @@
 export interface Peer {
     address: string;
-    lastSeen: number;
+    declaredAddress: string;
+    peerName: string;
+    peerNonce: string;
 }
 
 export interface PeerModel {
