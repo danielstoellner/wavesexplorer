@@ -1,10 +1,59 @@
-<h2>HOME</h2>
+<h1>HOME</h1>
+<h2>Latest Blocks</h2>
+<div name = "top">
+  <p-dataTable [value]="blocks" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
+    <p-header>List of Blocks</p-header>
+    <p-footer>There are 50 Blocks</p-footer>
+    <p-column field="height" header="height" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}">
+      <ng-template let-row="rowData" pTemplate type="body">
+        <a routerLink="../blocks/detail/{{row.height}}">{{row.height}}</a>
+      </ng-template>
+    </p-column>
+    <p-column field="timestamp" header="timestamp" [style]="{'width':'150px', 'text-align': 'center'}"></p-column>
+    <p-column field="generator" header="generator"></p-column>
+    <p-column field="blocksize" header="blocksize"[style]="{'width':'100px', 'text-align': 'center'}"></p-column>
+
+  </p-dataTable>
+  <a routerLink="/blocks/">See more</a>
+</div>
+
+<h2>Search</h2>
+<div name = "Search">
+  <p>
+  </p>
+  <input type="text" id="text">
+  <button class = "search-button" type="button">Search</button>
+</div>
+
+<h2>Introduction to Digital Currencies</h2>
+<div name = "Introduction">
+  <p>Like paper money and gold before it, bitcoin and ether allow parties to
+    exchange value. Unlike their predecessors, they are digital and
+    decentralized. For the first time in history, people can exchange value
+    without intermediaries which translates to greater control of funds and
+    lower fees.</p>
+  <li>
+    <a target="_blank" [href]="'https://beta.wavesplatform.com/'">What are digital currencies</a>
+  </li>
+  <li>
+    <a target="_blank" [href]="'https://beta.wavesplatform.com/'">What do you need</a>
+  </li>
+  <li>
+    <a target="_blank" [href]="'https://beta.wavesplatform.com/'">Create a Wallet</a>
+  </li>
+</div>
+
+<h2>Statistics</h2>
+<div name = "Statistics">
+
+</div>
+
+
 <div>
   <a *ngFor="let block of blocks | slice:0:10" class="col-1-4"
-    routerLink="/detail/{{block.height}}">
+     routerLink="/detail/{{block.height}}">
     <div class="module drawing">
       <h4>{{block.height}}</h4>
     </div>
   </a>
-
 </div>
