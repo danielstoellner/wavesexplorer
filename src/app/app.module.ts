@@ -42,6 +42,8 @@ import { GroupDetailComponent } from './groups/group-detail/group-detail.compone
 import {GrowlModule} from 'primeng/growl';
 import {GroupsService} from "./groups/group.service";
 import {PickListModule} from 'primeng/picklist';
+import { SearchComponent } from './search/search.component';
+import { SearchService } from './search/search.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import {PickListModule} from 'primeng/picklist';
     AddressDetailComponent,
     GroupsComponent,
     GroupDetailComponent,
+    SearchComponent,
 
   ],
   imports: [
@@ -94,6 +97,7 @@ import {PickListModule} from 'primeng/picklist';
     UserService,
     BlocksService,
     GroupsService,
+    SearchService,
   ],
   bootstrap: [AppComponent]
 })

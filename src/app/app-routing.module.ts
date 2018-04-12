@@ -10,10 +10,12 @@ import {BlockDetailComponent} from "./blocks/block-detail/block-detail.component
 import {AddressDetailComponent} from "./addresses/address-detail/address-detail.component";
 import {GroupDetailComponent} from "./groups/group-detail/group-detail.component";
 import {GroupsComponent} from "./groups/groups.component";
+import {SearchComponent} from "./search/search.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'search', component: SearchComponent },
   { path: 'peer', component: PeerComponent },
   { path: 'blocks', component: BlocksComponent },
   { path: 'detail/:height', component: BlockDetailComponent },

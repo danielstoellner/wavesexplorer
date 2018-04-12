@@ -19,9 +19,9 @@ export class AppComponent {
     this.items = [{
       label: 'Home', icon: 'fa-home',
     },
+      {label: 'search', icon: 'fa-download', routerLink: ['/search']},
       {label: 'blocks', icon: 'fa-download', routerLink: ['/blocks']},
       {label: 'peer', icon: 'fa-adjust', routerLink: ['/peer']},
-      {label: 'nodes', icon: 'fa-server', routerLink: ['/nodes']},
       {label: 'wallet', icon: 'fa-address-book', url: 'https://beta.wavesplatform.com/'},
       {
         label: 'Management', icon: 'fa-server',

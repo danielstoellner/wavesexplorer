@@ -1,9 +1,9 @@
 <h1>HOME</h1>
 <h2>Latest Blocks</h2>
 <div name = "top">
-  <p-dataTable [value]="blocks" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
+  <p-dataTable [value]="blocks" [rows]="5" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="1" [responsive]="true" [stacked]="stacked">
     <p-header>List of Blocks</p-header>
-    <p-footer>There are 50 Blocks</p-footer>
+    <p-footer>There are 5 Blocks</p-footer>
     <p-column field="height" header="height" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}">
       <ng-template let-row="rowData" pTemplate type="body">
         <a routerLink="../blocks/detail/{{row.height}}">{{row.height}}</a>
@@ -15,14 +15,6 @@
 
   </p-dataTable>
   <a routerLink="/blocks/">See more</a>
-</div>
-
-<h2>Search</h2>
-<div name = "Search">
-  <p>
-  </p>
-  <input type="text" id="text">
-  <button class = "search-button" type="button">Search</button>
 </div>
 
 <h2>Introduction to Digital Currencies</h2>
