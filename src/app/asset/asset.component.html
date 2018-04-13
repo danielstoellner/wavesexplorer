@@ -1,0 +1,45 @@
+<h2>Details zu Asset {{ asset.assetId }}</h2>
+<p><button (click)="goBack()">go back</button></p>
+<table width="100%">
+  <tr>
+    <th align="right">Details</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td align=right>Asset-ID</td>
+    <td>{{asset.assetId}}</td>
+  </tr>
+  <tr>
+    <td align="right">Issue-Height</td>
+    <td>{{asset.issueHeight}}</td>
+  </tr>
+  <tr>
+    <td align="right">Issue-Timestamp</td>
+    <td>{{asset.issueTimestamp | date:'dd. MMMM yyyy @ HH:mm'}}</td>
+  </tr>
+  <tr>
+    <td align="right">Issuer</td>
+    <td>{{asset.issuer}}</td>
+  </tr>
+  <tr>
+    <td align="right">Name</td>
+    <td>{{asset.name}}</td>
+  </tr>
+  <tr>
+    <td align="right">Description</td>
+    <td>{{asset.description}}</td>
+  </tr>
+  <tr>
+    <td align="right">Decimals</td>
+    <td>{{asset.decimals}}</td>
+  </tr>
+  <tr>
+    <td align="right">reissuable</td>
+    <td>{{asset.reissuable}}</td>
+  </tr>
+  <tr>
+    <td align="right">Quantity</td>
+    <td>{{asset.quantity}}</td>
+  </tr>
+</table>
+
