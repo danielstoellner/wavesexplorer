@@ -44,6 +44,9 @@ import {GroupsService} from "./groups/group.service";
 import {PickListModule} from 'primeng/picklist';
 import { SearchComponent } from './search/search.component';
 import { SearchService } from './search/search.service';
+import { AssetComponent } from './asset/asset.component';
+import {AssetService} from "./asset/asset.service";
+
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ import { SearchService } from './search/search.service';
     GroupsComponent,
     GroupDetailComponent,
     SearchComponent,
+    AssetComponent,
 
   ],
   imports: [
@@ -90,6 +94,7 @@ import { SearchService } from './search/search.service';
   ],
   providers: [
     PeerService,
+    AssetService,
     MessageService,
     AddressesService,
     SettingsService,

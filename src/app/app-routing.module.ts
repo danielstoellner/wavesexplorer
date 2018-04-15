@@ -11,6 +11,7 @@ import {AddressDetailComponent} from "./addresses/address-detail/address-detail.
 import {GroupDetailComponent} from "./groups/group-detail/group-detail.component";
 import {GroupsComponent} from "./groups/groups.component";
 import {SearchComponent} from "./search/search.component";
+import {AssetComponent} from "./asset/asset.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'detail/:height', component: BlockDetailComponent },
   { path: 'addresses', component: AddressesComponent },
   { path: 'addresses/detail/:address', component: AddressDetailComponent },
+  { path: 'asset/:assetId', component: AssetComponent },
   { path: 'users', component: UsersComponent },
   { path: 'users/detail/:id', component: UserDetailComponent },
   { path: 'groups', component: GroupsComponent },
