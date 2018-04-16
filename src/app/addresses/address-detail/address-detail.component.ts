@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Address} from "../address";
 import {AddressesService} from "../addresses.service";
@@ -15,32 +15,44 @@ export class AddressDetailComponent implements OnInit {
   address: Address;
   transactions: Transaction[];
   addr: string;
+  loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private addressService: AddressesService,
-    private location: Location
+    private location: Location,
   ) { }
 
-  ngOnInit(): void {
-    this.getAddress();
+  ngOnInit() {
+    this.reload();
   }
 
-  async getAddress() {
+  reload(){
+    this.loading = true;
+    setTimeout(() => {
+      this.getAddress();
+      this.getTransactions();
+      this.loading = false;
+    }, 1000);
+  }
+
+  getAddress() {
     const address = this.route.snapshot.paramMap.get('address');
     this.addr = address;
     this.addressService.getBalance(address)
       .subscribe(address => this.address = address);
-    this.getTransactions();
   }
 
-  async getTransactions() {
-    console.log('TRANS' + this.addr);
+  getTransactions() {
     this.addressService.getTransactions(this.addr, 100)
       .subscribe(transaction => this.transactions = transaction);
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  goTo(address: string): void {
+    this.reload();
   }
 }

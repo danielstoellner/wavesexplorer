@@ -6,6 +6,7 @@ import {SettingsService} from "../common/settings.service";
 import {HttpClient } from "@angular/common/http";
 import {Block, BlockHeight } from "./block";
 import {of} from "rxjs/observable/of";
+import {User} from "../users/user";
 
 @Injectable()
 export class BlocksService {
@@ -65,6 +66,15 @@ export class BlocksService {
       .toPromise();
   }
 
+  getBlockFromTo2 (from: number, to: number): Observable<Block[]> {
+    const url = `${this.settingService.serverPath + this.blockUrl }seq/${from}/${to}`;
+    return this.http.get<Block[]>(url)
+      .pipe(
+        tap(_ => this.log(`fetched blocks from=${from} to ${to}`)),
+        catchError(this.handleError<Block[]>(`getBlocks ${from} to ${to}`))
+      );
+  }
+
   getBlockHeight(): Observable<BlockHeight[]> {
     this.log("call " + this.settingService.serverPath + this.blockUrl + 'height');
 
@@ -73,6 +83,18 @@ export class BlocksService {
         tap(height => this.log(`fetched blockheight`)),
         catchError(this.handleError('getBlockheight', []))
       );
+  }
+
+  /* GET blcoks whose id contains search term */
+  searchBlocks(term: string): Observable<Block[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Block[]>(this.settingService.serverPath + this.blockUrl +`seq/${term}/4`).pipe(
+      tap(_ => this.log(`found blocks matching "${term}"`)),
+      catchError(this.handleError<Block[]>('searchBlocks', []))
+    );
   }
 
   /**
