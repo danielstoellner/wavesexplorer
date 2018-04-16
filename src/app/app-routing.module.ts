@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'search/:searchTerm', component: SearchComponent },
   { path: 'peer', component: PeerComponent },
   { path: 'blocks', component: BlocksComponent },
   { path: 'detail/:height', component: BlockDetailComponent },

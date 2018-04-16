@@ -1,7 +1,19 @@
-<h2>Search</h2>
-<div name = "Search">
-  <p>
-  </p>
-  <input type="text" id="text">
-  <button class = "search-button" type="button">Search</button>
+<h1>Search</h1>
+
+<div *ngIf="searchTerm">
+  No Result found: {{searchTerm}}
+</div>
+
+<div id="search-component">
+  <!--
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let block of blocks" >
+      <a routerLink="/detail/{{block.height}}">
+        {{block.height}}
+      </a>
+    </li>
+  </ul>
+  !-->
 </div>

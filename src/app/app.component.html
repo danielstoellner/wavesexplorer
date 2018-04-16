@@ -4,7 +4,10 @@
   <h1>Welcome to {{ title }}!</h1>
   !-->
 
-  <p-menubar [model]="items"></p-menubar>
+  <p-menubar [model]="items">
+    <input #searchTerm placeholder="Search" type="text" pInputText>
+    <button routerLink="/search/{{searchTerm.value}}" pButton (click)="searchTerm.value=''" label="Search" icon="fa-search" ></button>
+  </p-menubar>
 
 </p-header>
 <p-panel>
