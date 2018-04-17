@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Asset} from "./asset";
 import {AssetService} from "./asset.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-asset',
@@ -12,15 +13,17 @@ export class AssetComponent implements OnInit {
   stacked: boolean;
 
   constructor(
+    private route: ActivatedRoute,
     private assetService: AssetService
 ) { }
 
   ngOnInit() {
-    this.getAsset();
+    this.getAssetId();
   }
 
-  getAsset(): void {
-    this.assetService.getAsset()
+  getAssetId() {
+    const assetId = this.route.snapshot.paramMap.get('assetId');
+    this.assetService.getAssetById(assetId)
       .subscribe(asset => this.asset = asset);
   }
 
