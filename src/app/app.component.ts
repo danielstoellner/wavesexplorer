@@ -17,18 +17,11 @@ export class AppComponent {
 
   ngOnInit() {
     this.items = [{
-      label: 'Home', icon: 'fa-home',
-    },
-      {label: 'search', icon: 'fa-download', routerLink: ['/search']},
+       label: 'Home', icon: 'fa-home', routerLink: ['/dashboard']},
       {label: 'blocks', icon: 'fa-download', routerLink: ['/blocks']},
       {label: 'peer', icon: 'fa-adjust', routerLink: ['/peer']},
       {label: 'wallet', icon: 'fa-address-book', url: 'https://beta.wavesplatform.com/'},
-      {
-        label: 'Management', icon: 'fa-server',
-        items: [
-          {label: 'address', routerLink: ['/addresses']}
-        ]
-      },
+      {label: 'Node', icon: 'fa-server', routerLink: ['/addresses']},
       {
         label: 'Settings', icon: 'fa-gears',
         items: [
