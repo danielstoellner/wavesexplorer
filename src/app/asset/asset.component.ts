@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Asset} from "./asset";
 import {AssetService} from "./asset.service";
 import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-asset',
@@ -14,7 +15,8 @@ export class AssetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private assetService: AssetService
+    private assetService: AssetService,
+    private location: Location,
 ) { }
 
   ngOnInit() {
@@ -29,5 +31,9 @@ export class AssetComponent implements OnInit {
 
   toggle() {
     this.stacked = !this.stacked;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
