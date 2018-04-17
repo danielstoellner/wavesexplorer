@@ -1,16 +1,5 @@
 <h2>Peers List</h2>
 
-<!--
-<div *ngIf="peersModel">
-  <li *ngFor="let peer of peersModel.peers">
-    {{peer.address}} <br>
-    {{peer.lastSeen}}
-    <br>
-    <br>
-  </li>
-</div>
-!-->
-
 <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
 <p-dataTable [value]="peersModel.peers" [rows]="50" [paginator]="true" sortField="lastSeen"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
   <p-header>List of connected Peers</p-header>
@@ -19,6 +8,5 @@
   <p-column field="declaredAddress" header="Declared address" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
   <p-column field="peerName" header="Node Name" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
   <p-column field="peerNonce" header="Node Nonce" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
-
 </p-dataTable>
 

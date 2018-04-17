@@ -12,6 +12,7 @@ import {GroupDetailComponent} from "./groups/group-detail/group-detail.component
 import {GroupsComponent} from "./groups/groups.component";
 import {SearchComponent} from "./search/search.component";
 import {AssetComponent} from "./asset/asset.component";
+import {TransactionComponent} from "./transaction/transaction.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'peer', component: PeerComponent },
   { path: 'blocks', component: BlocksComponent },
   { path: 'detail/:height', component: BlockDetailComponent },
+  { path: 'transaction/:transactionId', component: TransactionComponent },
   { path: 'addresses', component: AddressesComponent },
   { path: 'addresses/detail/:address', component: AddressDetailComponent },
   { path: 'asset/:assetId', component: AssetComponent },
