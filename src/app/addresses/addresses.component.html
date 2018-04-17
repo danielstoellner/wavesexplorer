@@ -1,3 +1,5 @@
 <ul class="address">
-  <p ng-show="search">Wallet Addresse: {{addresses}}</p>
+  <p ng-show="search">Wallet Addresse:
+    <a routerLink="/addresses/detail/{{addresses}}">{{addresses}}</a>
+  </p>
 </ul>
