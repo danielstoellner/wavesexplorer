@@ -46,7 +46,8 @@ import { SearchComponent } from './search/search.component';
 import { SearchService } from './search/search.service';
 import { AssetComponent } from './asset/asset.component';
 import {AssetService} from "./asset/asset.service";
-
+import { TransactionComponent } from './transaction/transaction.component';
+import {TransactionService} from "./transaction/transaction.service";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {AssetService} from "./asset/asset.service";
     GroupDetailComponent,
     SearchComponent,
     AssetComponent,
+    TransactionComponent,
 
   ],
   imports: [
@@ -103,6 +105,7 @@ import {AssetService} from "./asset/asset.service";
     BlocksService,
     GroupsService,
     SearchService,
+    TransactionService,
   ],
   bootstrap: [AppComponent]
 })
