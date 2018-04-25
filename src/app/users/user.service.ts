@@ -9,6 +9,7 @@ import { User } from './user';
 import { MessageService } from '../message.service';
 import {SettingsService} from '../common/settings.service';
 import {Group} from "../groups/group";
+import {Block, BlockHeight} from "../blocks/block";
 
 
 const httpOptions = {
@@ -32,6 +33,14 @@ export class UserService {
         tap(users => this.log(`fetched users`)),
         catchError(this.handleError('getUsers', []))
       );
+  }
+
+  getUsersPromise (): Promise<User[]> {
+    return this.http.get<User[]>(this.settingService.wavesBackendAPI + this.usersUrl )
+      .pipe(
+        tap(users => this.log(`fetched users`)),
+        catchError(this.handleError('getUsers', []))
+      ).toPromise();
   }
 
   /** GET user by id. Will 404 if id not found */

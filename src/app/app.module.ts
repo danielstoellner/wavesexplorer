@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {FormGroup, FormsModule} from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { HttpService } from './common/http.service';
 import { SettingsService } from './common/settings.service';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
@@ -48,6 +48,7 @@ import { AssetComponent } from './asset/asset.component';
 import {AssetService} from "./asset/asset.service";
 import { TransactionComponent } from './transaction/transaction.component';
 import {TransactionService} from "./transaction/transaction.service";
+import {ChartModule} from "primeng/chart";
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import {TransactionService} from "./transaction/transaction.service";
     CardModule,
     GrowlModule,
     PickListModule,
+    ChartModule,
   ],
   providers: [
     PeerService,

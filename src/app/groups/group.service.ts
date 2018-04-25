@@ -39,6 +39,15 @@ export class GroupsService {
     );
   }
 
+  /** GET user by id. Will 404 if id not found */
+  getGroupPromise(id: number): Promise<Group> {
+    const url = `${this.settingService.wavesBackendAPI + this.groupsUrl}/${id}`;
+    return this.http.get<Group>(url).pipe(
+      tap(_ => this.log(`fetched group id=${id}`)),
+      catchError(this.handleError<Group>(`getGroup id=${id}`))
+    ).toPromise();
+  }
+
   /** POST: add a new Group to the server */
   addGroup (group: Group): Observable<Group> {
     console.log('addGroup');

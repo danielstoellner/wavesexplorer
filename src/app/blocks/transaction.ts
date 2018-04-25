@@ -1,3 +1,5 @@
+import {Pipe, PipeTransform} from "@angular/core";
+
 export class Transaction {
   type: number;
   id: number;
@@ -27,6 +29,7 @@ export class Lease {
   amount: number;
   recipient: string;
 }
+
 
 /* different transaction types
   1:  Genesis transaction
