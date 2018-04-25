@@ -30,7 +30,7 @@
 </div>
 
 <div *ngIf="transactions">
-  <p-dataTable [value]="transactions[0]" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [style]="{'font-size': '80%'}">
+  <p-dataTable [value]="transactions[0]" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true">
     <p-header>List of Transactions</p-header>
     <p-footer>There are 100 Transactions</p-footer>
     <p-column field="id" header="id" [sortable]="true" [style]="{'width':'150px'}">

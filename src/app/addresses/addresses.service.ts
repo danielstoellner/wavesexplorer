@@ -33,6 +33,15 @@ export class AddressesService {
       );
   }
 
+  getAddressesPromise(): Promise<Address[]> {
+    this.log("call " + this.settingService.serverPath + this.addressesUrl);
+    return this.http.get<Address[]>(this.settingService.serverPath + this.addressesUrl)
+      .pipe(
+        tap(addresses => this.log(`fetched addresses`)),
+        catchError(this.handleError('getAddresses', []))
+      ).toPromise();
+  }
+
   /** GET hero by id. Will 404 if id not found */
   getBalance(address: string): Observable<Address> {
     const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
@@ -41,6 +50,15 @@ export class AddressesService {
         tap(_ => this.log(`fetched balance=${address}`)),
         catchError(this.handleError<Address>('getAddresses'))
     );
+  }
+
+  getBalancePromise(address: string): Promise<Address> {
+    const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
+    this.log("call " + url);
+    return this.http.get<Address>(url).pipe(
+      tap(_ => this.log(`fetched balance=${address}`)),
+      catchError(this.handleError<Address>('getAddresses'))
+    ).toPromise();
   }
 
   /** GET hero by id. Will 404 if id not found */
