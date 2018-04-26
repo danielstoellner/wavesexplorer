@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from './user.service';
 import {User} from './user';
-import {Message, SelectItem} from "primeng/api";
+import {Message } from "primeng/api";
+import {BackendApiService} from "../common/backend-api.service";
 
 @Component({
   selector: 'app-users',
@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private userService: UserService
+    private backendApiService: BackendApiService
   ) { }
 
   ngOnInit() {
@@ -28,13 +28,13 @@ export class UsersComponent implements OnInit {
   refresh() {
     this.loading = true;
     setTimeout(() => {
-      this.userService.getUsers().subscribe(user => this.users = user);
+      this.backendApiService.getUsers().subscribe(user => this.users = user);
       this.loading = false;
     }, 1000);
   }
 
   getUsers(): void {
-    this.userService.getUsers()
+    this.backendApiService.getUsers()
       .subscribe(users => this.users = users);
   }
 
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
     address = address.trim();
 
     if (!username) { return; }
-    this.userService.addUser({username, givenname, surename, address} as User)
+    this.backendApiService.addUser({username, givenname, surename, address} as User)
       .subscribe(user => {
         this.users.push(user);
       });

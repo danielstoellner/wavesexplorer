@@ -1,10 +1,9 @@
 import {Component, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {BlocksService} from "../blocks.service";
 import { Location } from '@angular/common';
 import {Block} from "../block";
-import {forEach} from "@angular/router/src/utils/collection";
 import {Transaction} from "../transaction";
+import {WavesApiService} from "../../common/waves-api.service";
 
 @Component({
   selector: 'app-block-detail',
@@ -22,7 +21,7 @@ export class BlockDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private blockService: BlocksService,
+    private wavesApiService: WavesApiService,
     private location: Location
   ) {
     this.priceListMap.set(1,  "Genesis transaction");
@@ -49,7 +48,7 @@ export class BlockDetailComponent implements OnInit {
      const height = + this.route.snapshot.paramMap.get('height');
      this.height = height;
      setTimeout(() => {
-       this.blockService.getBlockAt(height)
+       this.wavesApiService.getBlockAt(height)
          .subscribe(block => this.block = block);
        this.loading = false;
        //this.getTransactions();
@@ -58,13 +57,13 @@ export class BlockDetailComponent implements OnInit {
 
   next(): void {
     this.height += 1;
-    this.blockService.getBlockAt(this.height)
+    this.wavesApiService.getBlockAt(this.height)
       .subscribe(block => this.block = block);
   }
 
   prev(): void {
     this.height --;
-    this.blockService.getBlockAt(this.height)
+    this.wavesApiService.getBlockAt(this.height)
       .subscribe(block => this.block = block);
   }
 

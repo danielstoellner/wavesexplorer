@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AddressesService} from "./addresses.service";
 import {Address} from "./address";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-addresses',
@@ -11,7 +11,7 @@ export class AddressesComponent implements OnInit {
   addresses: Address[];
 
   constructor(
-    private addressesService: AddressesService
+    private wavesApiService: WavesApiService
   ) { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class AddressesComponent implements OnInit {
   }
 
   getAddresses(): void {
-    this.addressesService.getAddresses()
+    this.wavesApiService.getAddresses()
       .subscribe(address => this.addresses = address);
   }
 }

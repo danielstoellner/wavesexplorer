@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute } from "@angular/router";
 import {Location} from "@angular/common";
 import {Address} from "../address";
-import {AddressesService} from "../addresses.service";
 import {Transaction} from "../../blocks/transaction";
+import {WavesApiService} from "../../common/waves-api.service";
 
 @Component({
   selector: 'app-address-detail',
@@ -19,7 +19,7 @@ export class AddressDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private addressService: AddressesService,
+    private wavesApiService: WavesApiService,
     private location: Location,
   ) { }
 
@@ -39,12 +39,12 @@ export class AddressDetailComponent implements OnInit {
   getAddress() {
     const address = this.route.snapshot.paramMap.get('address');
     this.addr = address;
-    this.addressService.getBalance(address)
+    this.wavesApiService.getBalance(address)
       .subscribe(address => this.address = address);
   }
 
   getTransactions() {
-    this.addressService.getTransactions(this.addr, 100)
+    this.wavesApiService.getTransactions(this.addr, 100)
       .subscribe(transaction => this.transactions = transaction);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {BlocksService} from "../blocks/blocks.service";
 import {Block, BlockHeight } from "../blocks/block";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   stacked: boolean;
 
   constructor(
-    private blockService: BlocksService
+    private wavesApiService: WavesApiService
   ) { }
 
   ngOnInit() {
@@ -21,14 +21,14 @@ export class DashboardComponent implements OnInit {
   }
 
   async getHeight() {
-    const result: BlockHeight = await this.blockService.getHeight();
+    const result: BlockHeight = await this.wavesApiService.getHeight();
     this.height = result.height;
     //this.getHeighestBlock();
     this.getBlockFromTo();
   }
 
   async getBlockFromTo() {
-    const result: Block[] = await this.blockService.getBlockFromTo(this.height - 4, this.height);
+    const result: Block[] = await this.wavesApiService.getBlockFromTo(this.height - 4, this.height);
     this.blocks = result;
   }
 

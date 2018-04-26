@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../user';
-import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {GroupsService} from "../../groups/group.service";
 import {Group} from "../../groups/group";
+import {WavesApiService} from "../../common/waves-api.service";
+import {BackendApiService} from "../../common/backend-api.service";
 
 @Component({
   selector: 'app-user-detail',
@@ -19,8 +19,8 @@ export class UserDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
-    private groupService: GroupsService,
+    private backendApiService: BackendApiService,
+    private wavesApiService: WavesApiService,
     private location: Location,
   ) { }
 
@@ -32,8 +32,8 @@ export class UserDetailComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       const id = + this.route.snapshot.paramMap.get('id');
-      this.userService.getUser(id).subscribe(user => this.user = user);
-      this.groupService.getGroups()
+      this.backendApiService.getUser(id).subscribe(user => this.user = user);
+      this.backendApiService.getGroups()
         .subscribe(group => this.availableGroups = group);
       this.loading = false;
     }, 1000);
@@ -42,7 +42,7 @@ export class UserDetailComponent implements OnInit {
 
   getUser(): void {
     const id = + this.route.snapshot.paramMap.get('id');
-    this.userService.getUser(id)
+    this.backendApiService.getUser(id)
       .subscribe(user => this.user = user);
   }
 
@@ -51,12 +51,12 @@ export class UserDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.userService.updateUser(this.user)
+    this.backendApiService.updateUser(this.user)
       .subscribe(() => this.goBack());
   }
 
   delete(): void {
-    const result = this.userService.deleteUser(this.user).subscribe();
+    const result = this.backendApiService.deleteUser(this.user).subscribe();
     this.goBack();
   }
 }

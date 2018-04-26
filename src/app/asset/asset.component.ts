@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Asset} from "./asset";
-import {AssetService} from "./asset.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-asset',
@@ -15,7 +15,7 @@ export class AssetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private assetService: AssetService,
+    private wavesApiService: WavesApiService,
     private location: Location,
 ) { }
 
@@ -25,7 +25,7 @@ export class AssetComponent implements OnInit {
 
   getAssetId() {
     const assetId = this.route.snapshot.paramMap.get('assetId');
-    this.assetService.getAssetById(assetId)
+    this.wavesApiService.getAssetById(assetId)
       .subscribe(asset => this.asset = asset);
   }
 
