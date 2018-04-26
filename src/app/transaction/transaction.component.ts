@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Transaction} from "./transaction";
-import {TransactionService} from "./transaction.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-transaction',
@@ -15,7 +15,7 @@ export class TransactionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private transactionService: TransactionService,
+    private wavesApiService: WavesApiService,
     private location: Location,
   ) { }
 
@@ -25,7 +25,7 @@ export class TransactionComponent implements OnInit {
 
   getTransaction() {
     const transactionId = this.route.snapshot.paramMap.get('transactionId');
-    this.transactionService.getTransaction(transactionId)
+    this.wavesApiService.getTransaction(transactionId)
       .subscribe(transaction => this.transaction = transaction);
   }
 

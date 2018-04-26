@@ -11,7 +11,6 @@ import { HttpClientModule} from '@angular/common/http';
 import { HttpService } from './common/http.service';
 import { SettingsService } from './common/settings.service';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
-import { UserService } from './users/user.service';
 import { UsersComponent } from './users/users.component';
 import { InputTextModule } from 'primeng/inputtext';
 import {AccordionModule, DataListModule} from 'primeng/primeng';
@@ -25,11 +24,8 @@ import {MenubarModule} from 'primeng/menubar';
 import {DataViewModule} from 'primeng/dataview';
 import {DataTableModule} from 'primeng/datatable';
 import { PeerComponent } from './peer/peer.component';
-import {PeerService} from "./peer/peer.service";
 import { AddressesComponent } from './addresses/addresses.component';
-import {AddressesService} from "./addresses/addresses.service";
 import { BlocksComponent } from './blocks/blocks.component';
-import {BlocksService} from "./blocks/blocks.service";
 import {UtilsModule} from "./utils/utils.module";
 import { BlockDetailComponent } from './blocks/block-detail/block-detail.component';
 import {TreeTableModule} from 'primeng/treetable';
@@ -40,15 +36,14 @@ import { AddressDetailComponent } from './addresses/address-detail/address-detai
 import { GroupsComponent } from './groups/groups.component';
 import { GroupDetailComponent } from './groups/group-detail/group-detail.component';
 import {GrowlModule} from 'primeng/growl';
-import {GroupsService} from "./groups/group.service";
 import {PickListModule} from 'primeng/picklist';
 import { SearchComponent } from './search/search.component';
 import { SearchService } from './search/search.service';
 import { AssetComponent } from './asset/asset.component';
-import {AssetService} from "./asset/asset.service";
 import { TransactionComponent } from './transaction/transaction.component';
-import {TransactionService} from "./transaction/transaction.service";
 import {ChartModule} from "primeng/chart";
+import {WavesApiService} from "./common/waves-api.service";
+import {BackendApiService} from "./common/backend-api.service";
 
 @NgModule({
   declarations: [
@@ -97,17 +92,12 @@ import {ChartModule} from "primeng/chart";
     ChartModule,
   ],
   providers: [
-    PeerService,
-    AssetService,
     MessageService,
-    AddressesService,
     SettingsService,
     HttpService,
-    UserService,
-    BlocksService,
-    GroupsService,
     SearchService,
-    TransactionService,
+    WavesApiService,
+    BackendApiService,
   ],
   bootstrap: [AppComponent]
 })

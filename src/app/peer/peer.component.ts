@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Peer, PeerModel} from "./peer";
-import {PeerService} from "./peer.service";
+import { PeerModel} from "./peer";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-peer',
@@ -12,7 +12,7 @@ export class PeerComponent implements OnInit {
   stacked: boolean;
 
   constructor(
-    private peerService: PeerService
+    private wavesApiService: WavesApiService
   ) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class PeerComponent implements OnInit {
   }
 
   getPeers(): void {
-    this.peerService.getPeers()
+    this.wavesApiService.getPeers()
       .subscribe(peers => this.peersModel = peers);
   }
 

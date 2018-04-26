@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Message} from "primeng/api";
 import {User} from "../users/user";
 import {Group} from "./group";
-import {GroupsService} from "./group.service";
+import {WavesApiService} from "../common/waves-api.service";
+import {BackendApiService} from "../common/backend-api.service";
 
 @Component({
   selector: 'app-groups',
@@ -17,7 +18,7 @@ export class GroupsComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private groupService: GroupsService
+    private backendApiService: BackendApiService
   ) { }
 
   ngOnInit() {
@@ -30,13 +31,13 @@ export class GroupsComponent implements OnInit {
   refresh() {
     this.loading = true;
     setTimeout(() => {
-      this.groupService.getGroups().subscribe(groups => this.groups = groups);
+      this.backendApiService.getGroups().subscribe(groups => this.groups = groups);
       this.loading = false;
     }, 1000);
   }
 
   getGroups(): void {
-    this.groupService.getGroups()
+    this.backendApiService.getGroups()
       .subscribe(groups => this.groups = groups);
   }
 
@@ -45,7 +46,7 @@ export class GroupsComponent implements OnInit {
     currency = currency.trim();
 
     if (!name) { return; }
-    this.groupService.addGroup({name, currency} as Group)
+    this.backendApiService.addGroup({name, currency} as Group)
       .subscribe(group => {
         this.groups.push(group);
       });

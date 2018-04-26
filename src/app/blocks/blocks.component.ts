@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {BlocksService} from "./blocks.service";
 import {Block, BlockHeight } from "./block";
+import {WavesApiService} from "../common/waves-api.service";
 
 @Component({
   selector: 'app-blocks',
@@ -13,7 +13,7 @@ export class BlocksComponent implements OnInit {
   stacked: boolean;
 
   constructor(
-    private blockService: BlocksService
+    private wavesApiService: WavesApiService
   ) { }
 
   toggle() {
@@ -25,7 +25,7 @@ export class BlocksComponent implements OnInit {
   }
 
   async getHeight() {
-    const result: BlockHeight = await this.blockService.getHeight();
+    const result: BlockHeight = await this.wavesApiService.getHeight();
     this.height = result.height;
     //console.log(result.height);
     this.getHeighestBlock();
@@ -33,12 +33,12 @@ export class BlocksComponent implements OnInit {
   }
 
   async getHeighestBlock() {
-    const result: Block = await this.blockService.getLatestBlock(this.height);
+    const result: Block = await this.wavesApiService.getLatestBlock(this.height);
     //console.log(result.blocksize);
   }
 
   async getBlockFromTo() {
-    const result: Block[] = await this.blockService.getBlockFromTo(this.height - 50, this.height);
+    const result: Block[] = await this.wavesApiService.getBlockFromTo(this.height - 50, this.height);
     this.blocks = result;
     /*this.blocks.forEach(p =>{
       console.log(p.generator);
