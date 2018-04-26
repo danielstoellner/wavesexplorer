@@ -1,12 +1,27 @@
 <h1>HOME</h1>
+<h2>General Information</h2>
+<div name = "general information">
+  <table>
+    <tr>
+      <td>Current height:</td>
+      <td>{{height}}</td>
+    </tr>
+    <tr>
+      <td>Version: </td>
+      <td>Waves v0.10.3</td>
+    </tr>
+  </table>
+  <br/>
+</div>
+
 <h2>Latest Blocks</h2>
 <div name = "top">
-  <p-dataTable [value]="blocks" [rows]="5" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="1" [responsive]="true" [stacked]="stacked">
+  <p-dataTable [value]="blocks" [rows]="5" sortField="height"  [sortOrder]="-1" [responsive]="true">
     <p-header>List of Blocks</p-header>
-    <p-footer>There are 5 Blocks</p-footer>
+    <p-footer>The last 5 Blocks</p-footer>
     <p-column field="height" header="height" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}">
       <ng-template let-row="rowData" pTemplate type="body">
-        <a routerLink="../blocks/detail/{{row.height}}">{{row.height}}</a>
+        <a routerLink="/detail/{{row.height}}">{{row.height}}</a>
       </ng-template>
     </p-column>
     <p-column field="timestamp" header="timestamp" [style]="{'width':'150px', 'text-align': 'center'}"></p-column>
@@ -14,7 +29,8 @@
     <p-column field="blocksize" header="blocksize"[style]="{'width':'100px', 'text-align': 'center'}"></p-column>
 
   </p-dataTable>
-  <a routerLink="/blocks/">See more</a>
+  <br/>
+  <b routerLink="/blocks/" style="margin: 25px" style="color:black">See more</b>
 </div>
 
 <h2>Introduction to Digital Currencies</h2>
@@ -25,10 +41,10 @@
     without intermediaries which translates to greater control of funds and
     lower fees.</p>
   <li>
-    <a target="_blank" [href]="'https://beta.wavesplatform.com/'">What are digital currencies</a>
+    <a target="_blank" [href]="'https://www.kreditkarte.net/kryptowaehrungen/'">What are digital currencies</a>
   </li>
   <li>
-    <a target="_blank" [href]="'https://beta.wavesplatform.com/'">What do you need</a>
+    <a target="_blank" [href]="'https://derstandard.at/2000071879884/Die-ersten-Schritte-zu-Bitcoin-und-Co-Was-es-zu'">First steps</a>
   </li>
   <li>
     <a target="_blank" [href]="'https://beta.wavesplatform.com/'">Create a Wallet</a>
@@ -37,15 +53,4 @@
 
 <h2>Statistics</h2>
 <div name = "Statistics">
-
-</div>
-
-
-<div>
-  <a *ngFor="let block of blocks | slice:0:10" class="col-1-4"
-     routerLink="/detail/{{block.height}}">
-    <div class="module drawing">
-      <h4>{{block.height}}</h4>
-    </div>
-  </a>
 </div>
