@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Block} from "../blocks/block";
+import {Block, BlockHeight} from "../blocks/block";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {WavesApiService} from "../common/waves-api.service";
@@ -37,14 +37,21 @@ export class SearchComponent implements OnInit {
       if(search != null && searchTerm != null){
         this.lengthSearchTerm = searchTerm.length;
         search = searchTerm.trim();
+        // Block Number
         if(Number(search)){
-          //this.router.navigateByUrl("/detail/" + searchTerm);
           this.wavesApiService.getBlockAt(Number(search)).subscribe(
             block => this.router.navigateByUrl( "/detail/" + block.height));
           this.loading = false;
+          // Block Signature
+        } else if (this.lengthSearchTerm > 50){
+          this.wavesApiService.getBlockSignature(search).subscribe(
+            block => this.router.navigateByUrl( "/detail/" + block.height));
+          this.loading = false;
+          // Transaktion ID
         } else if (this.lengthSearchTerm > 35){
           this.wavesApiService.getTransaction(search).subscribe(
             transaction => this.router.navigateByUrl( "/transaction/" + transaction.id));
+          // Address ID
         } else {
           this.wavesApiService.getBalance(search).subscribe(
             address => this.router.navigateByUrl( "/addresses/detail/" + address.address));
