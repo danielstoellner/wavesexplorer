@@ -149,6 +149,14 @@ export class WavesApiService {
       .toPromise();
   }
 
+  getBlockSignature(signature: string): Observable<Block> {
+    const url = `${this.settingService.serverPath + this.blockUrl }signature/${signature}`;
+    return this.http.get<Block>(url).pipe(
+      tap(_ => this.log(`fetched block signature=${signature}`)),
+      catchError(this.handleError<Block>(`getBlock signature=${signature}`))
+    );
+  }
+
   getBlockFromTo(from: number, to: number): Promise<Block[]> {
     const url = `${this.settingService.serverPath + this.blockUrl }seq/${from}/${to}`;
     return this.http.get<Block[]>(url)
