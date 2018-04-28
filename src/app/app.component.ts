@@ -26,6 +26,7 @@ export class AppComponent {
         label: 'Settings', icon: 'fa-gears',
         items: [
           {label: 'User', routerLink: ['/users']},
+          {label: 'User Import', routerLink: ['/userimport']},
           {label: 'Group', routerLink: ['/groups']
         }]
       }
