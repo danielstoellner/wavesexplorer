@@ -24,7 +24,7 @@ export class AssetComponent implements OnInit {
   }
 
   getAssetId() {
-    const assetId = this.route.snapshot.paramMap.get('assetId');
+    var assetId = this.route.snapshot.paramMap.get('assetId');
     this.wavesApiService.getAssetById(assetId)
       .subscribe(asset => this.asset = asset);
   }

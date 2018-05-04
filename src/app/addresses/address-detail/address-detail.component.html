@@ -35,7 +35,7 @@
     <p-footer>There are 100 Transactions</p-footer>
     <p-column field="id" header="id" [sortable]="true" [style]="{'width':'150px'}">
       <ng-template let-col let-row='rowData' pTemplate type="body">
-        <a routerLink="/transaction/detail/{{row[col.field]}}">{{row[col.field] | slice:0:8}}...</a>
+        <a routerLink="/transaction/{{row[col.field]}}">{{row[col.field] | slice:0:8}}...</a>
       </ng-template>
     </p-column>
     <p-column field="type" header="type" [style]="{'width':'20px'}"></p-column>
