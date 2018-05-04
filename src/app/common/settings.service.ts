@@ -8,4 +8,5 @@ export interface ISettings {
 export class SettingsService implements ISettings {
   public serverPath = 'https://nodes.wavesplatform.com/';
   public wavesBackendAPI = 'http://wavebackend.suroot.com:8080/';
+  public currencyMuliplicator = 100000000;
 }

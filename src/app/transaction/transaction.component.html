@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td align="right">Fee</td>
-    <td>{{transaction.fee}}</td>
+    <td>{{transaction.fee /100000000 | number:'0.0-10'}}</td>
   </tr>
   <tr>
     <td align="right">Signature</td>
@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td align="right">Amount</td>
-    <td>{{transaction.amount}}</td>
+    <td>{{transaction.amount /100000000 | number:'0.0-10'}}</td>
   </tr>
   <tr>
     <td align="right">Recipient</td>
