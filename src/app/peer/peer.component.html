@@ -1,12 +1,12 @@
 <h2>Peers List</h2>
 
-<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
+<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle view" icon="fa-list"></button>
 <p-dataTable [value]="peersModel.peers" [rows]="50" [paginator]="true" sortField="lastSeen"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
-  <p-header>List of connected Peers</p-header>
-  <p-footer>There are 50 Peers</p-footer>
-  <p-column field="address" header="Address" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
-  <p-column field="declaredAddress" header="Declared address" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
-  <p-column field="peerName" header="Node Name" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
-  <p-column field="peerNonce" header="Node Nonce" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}"></p-column>
+  <p-header>List of connected peers</p-header>
+  <p-footer>There are 50 peers</p-footer>
+  <p-column field="address" header="Address" [sortable]="true" [style]="{'width':'100px'}"></p-column>
+  <p-column field="declaredAddress" header="Declared address" [sortable]="true" [style]="{'width':'100px'}"></p-column>
+  <p-column field="peerName" header="Node Name" [sortable]="true" [style]="{'width':'100px'}"></p-column>
+  <p-column field="peerNonce" header="Node Nonce" [sortable]="true" [style]="{'width':'100px'}"></p-column>
 </p-dataTable>
 

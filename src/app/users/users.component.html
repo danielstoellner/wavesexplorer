@@ -67,7 +67,7 @@
   !-->
   <p-column field="address" header="Address">
     <ng-template let-row="rowData" pTemplate type="body">
-      <a routerLink="/addresses/detail/{{row.address}}">{{row.address}}</a>
+      <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>
     </ng-template>
   </p-column>
 </p-dataTable>
