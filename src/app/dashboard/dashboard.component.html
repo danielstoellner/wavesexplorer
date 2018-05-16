@@ -1,39 +1,46 @@
 <h1>HOME</h1>
-<h2>General Information</h2>
+<h2>General information</h2>
 <div name = "general information">
-  <table>
-    <tr>
-      <td>Current height:</td>
-      <td>{{height}}</td>
-    </tr>
-    <tr>
-      <td>Version: </td>
-      <td>Waves v0.10.3</td>
-    </tr>
-  </table>
+  <p> As a part of the course "Internship Software Engineering" at the Johannes Kepler
+    University Linz at the Institute for Business Informatics - Software Engineering,
+    our team has created a web-based Blockchain Explorer. The project already existed
+    and it was our task to improve the performance and get rid of the local database.
+    This application can be called independently of the device.
+
+    The implementation of the Blockchain Explorer is based on the Waves platform and
+    uses the API of Waves. It uses already existing blockchain technology and we
+    created a user interface.
+  </p>
   <br/>
 </div>
 
-<h2>Latest Blocks</h2>
+<h2>Latest blocks</h2>
 <div name = "top">
   <p-dataTable [value]="blocks" [rows]="5" sortField="height"  [sortOrder]="-1" [responsive]="true">
-    <p-header>List of Blocks</p-header>
-    <p-footer>The last 5 Blocks</p-footer>
-    <p-column field="height" header="height" [sortable]="true" [style]="{'width':'100px', 'text-align': 'center'}">
+    <p-header>List of blocks</p-header>
+    <p-footer>The last 5 blocks</p-footer>
+    <p-column field="height" header="Height" [sortable]="true" [style]="{'width':'100px'}">
       <ng-template let-row="rowData" pTemplate type="body">
         <a routerLink="/detail/{{row.height}}">{{row.height}}</a>
       </ng-template>
     </p-column>
-    <p-column field="timestamp" header="timestamp" [style]="{'width':'150px', 'text-align': 'center'}"></p-column>
-    <p-column field="generator" header="generator"></p-column>
-    <p-column field="blocksize" header="blocksize"[style]="{'width':'100px', 'text-align': 'center'}"></p-column>
-
+    <p-column field="timestamp" header="Timestamp" [style]="{'width':'200px'}">
+      <ng-template let-row="rowData" pTemplate type="body">
+        {{row.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}
+      </ng-template>
+    </p-column>
+    <p-column field="generator" header="Generator">
+      <ng-template let-row="rowData" pTemplate type="body">
+        <a routerLink="/addresses/detail/{{row.generator}}">{{row.generator | slice:0:8}}...</a>
+      </ng-template>
+    </p-column>
+    <p-column field="blocksize" header="Blocksize"[style]="{'width':'100px'}"></p-column>
   </p-dataTable>
   <br/>
   <b routerLink="/blocks/" style="margin: 25px" style="color:black">See more</b>
 </div>
 
-<h2>Introduction to Digital Currencies</h2>
+<h2>Introduction to digital currencies</h2>
 <div name = "Introduction">
   <p>Like paper money and gold before it, bitcoin and ether allow parties to
     exchange value. Unlike their predecessors, they are digital and

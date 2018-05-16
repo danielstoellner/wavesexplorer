@@ -1,27 +1,27 @@
 
-<h1>The latest Block from Wave is {{height}}</h1>
+<h1>The latest block from Waves is {{height}}</h1>
 
 
-<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
+<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle view" icon="fa-list"></button>
 
 <p-dataTable [value]="blocks" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">
-  <p-header>List of Blocks</p-header>
-  <p-footer>There are 50 Blocks</p-footer>
-  <p-column field="height" header="height" [sortable]="true">
+  <p-header>List of blocks</p-header>
+  <p-footer>There are 50 blocks</p-footer>
+  <p-column field="height" header="Height" [sortable]="true">
     <ng-template let-row="rowData" pTemplate type="body">
       <a routerLink="/detail/{{row.height}}">{{row.height}}</a>
     </ng-template>
   </p-column>
-  <p-column field="timestamp" header="timestamp">
+  <p-column field="timestamp" header="Timestamp">
     <ng-template let-row="rowData" pTemplate type="body">
       {{row.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}
     </ng-template>
   </p-column>
-  <p-column field="generator" header="generator">
+  <p-column field="generator" header="Generator">
     <ng-template let-row="rowData" pTemplate type="body">
       <a routerLink="/addresses/detail/{{row.generator}}">{{row.generator | slice:0:8}}...</a>
     </ng-template>
   </p-column>
-  <p-column field="blocksize" header="blocksize"></p-column>
+  <p-column field="blocksize" header="Blocksize"></p-column>
 
 </p-dataTable>
