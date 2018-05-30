@@ -50,11 +50,73 @@
   </tr>
 </table>
 
+<div *ngIf="block">
+  <p-dataTable [value]="block.transactions" sortField="type" rowGroupMode="subheader" groupField="type" expandableRowGroups="true"
+               [sortableRowGroup]="false">
+    <p-header>Transactions</p-header>
+    <ng-template pTemplate="rowgroupheader" let-rowData>Type: {{rowData['type'] }}</ng-template>
+    <p-column field="id" header="id">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]| slice:0:8}}...</span>
+      </ng-template>
+    </p-column>
+    <p-column field="timestamp" header="Timestamp">
+      <ng-template let-row="rowData" pTemplate type="body">
+        {{row.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}
+      </ng-template>
+    </p-column>
+    <p-column field="sender" header="sender">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]| slice:0:8}}...</span>
+      </ng-template>
+    </p-column>
+    <p-column field="recipient" header="recipient">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]| slice:0:8}}...</span>
+      </ng-template>
+    </p-column>
+    <p-column field="amount" header="amount">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]/100000000 | number:'0.0-10'}}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="asset" header="asset">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]}}</span>
+      </ng-template>
+    </p-column>
+
+
+
+    <!--
+    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['type']}}</ng-template>
+    <p-column field="block.transactions.id" header="type"></p-column>
+
+    <p-column field="timestamp" header="id"></p-column>
+    <p-column field="price" header="Price">
+      <ng-template let-col let-car="rowData" pTemplate="body">
+        <span>{{block[col.field] | currency:'USD':'symbol':'.0-0'}}</span>
+      </ng-template>
+    </p-column>
+    !-->
+    <!--
+    <ng-template pTemplate="rowgroupfooter" let-car>
+      <td colspan="3" style="text-align:right">Total Price</td>
+      <td>{{calculateGroupTotal(block['brand']) | currency:'USD':'symbol':'.0-0' }}</td>
+    </ng-template>
+    !-->
+  </p-dataTable>
+</div>
 <br>
+
+<!--
 <div *ngIf="block" class="transactions">
   <a ng-repeat="tra in block.transactions | filter:4">
     TEST {{ tra.sender }}
   </a>
+
+
+
 
   <p-panel *ngFor="let transaction of block.transactions; index as i" header="Transaction {{i+1}} of {{block.transactionCount}}" [toggleable]="true" [collapsed]="true" [style]="{'margin-bottom':'0px', 'width':'100%'}">
 
@@ -126,3 +188,4 @@
 
 
 
+<!-->
