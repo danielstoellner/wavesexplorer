@@ -26,18 +26,14 @@ export class AppComponent {
     this.getHeight();
     this.items = [{
        label: 'Home', icon: 'fa-home', routerLink: ['/dashboard']},
-      {label: 'Blocks', icon: 'fa-download', routerLink: ['/blocks']},
-      {label: 'Peer', icon: 'fa-adjust', routerLink: ['/peer']},
-      {label: 'Wallet', icon: 'fa-address-book', url: 'https://beta.wavesplatform.com/'},
-      {label: 'Node', icon: 'fa-server', routerLink: ['/addresses']},
-      {
-        label: 'Settings', icon: 'fa-gears',
-        items: [
-          {label: 'User', routerLink: ['/users']},
-          {label: 'User Import', routerLink: ['/userimport']},
-          {label: 'Group', routerLink: ['/groups']
-        }]
-      }
+      {label: 'Blocks', icon: 'fa-server', routerLink: ['/blocks']},
+      {label: 'Peers', icon: 'fa-tasks', routerLink: ['/peer']},
+      {label: 'Users', icon: 'fa-user', routerLink: ['/users']},
+      {label: 'User Import', icon: 'fa-file-excel-o', routerLink: ['/userimport']},
+      {label: 'Groups', icon: 'fa-group', routerLink: ['/groups']},
+      {label: 'Statistics', icon: 'fa-pie-chart', routerLink: ['/groups']},
+      {label: 'Wallet', icon: 'fa-credit-card', url: 'https://beta.wavesplatform.com/'},
+      {label: 'Node', icon: 'fa-database', routerLink: ['/addresses']}
     ];
   }
 }

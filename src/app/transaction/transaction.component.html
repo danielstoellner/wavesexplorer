@@ -1,5 +1,5 @@
 <div *ngIf="transaction">
-  <h2>Details zu Asset {{ transaction.id }}</h2>
+  <h2>Details zu Transaction {{ transaction.id }}</h2>
   <p><button (click)="goBack()">go back</button></p>
   <table width="100%">
     <tr>
@@ -22,9 +22,17 @@
       <td align="right">Sender Public-Key</td>
       <td>{{transaction.senderPublicKey}}</td>
     </tr>
+    <tr> <!--ng-hide="'{{transaction.recipient}}'==''"-->
+      <td align="right">Recipient</td>
+      <td>{{transaction.recipient}}</td>
+    </tr>
     <tr>
       <td align="right">Fee</td>
       <td>{{transaction.fee /100000000 | number:'0.0-10'}}</td>
+    </tr>
+    <tr>
+      <td align="right">FeeAsset</td>
+      <td>{{transaction.feeAsset}}</td>
     </tr>
     <tr>
       <td align="right">Signature</td>
@@ -35,9 +43,20 @@
       <td>{{transaction.amount /100000000 | number:'0.0-10'}}</td>
     </tr>
     <tr>
-      <td align="right">Recipient</td>
-      <td>{{transaction.recipient}}</td>
+      <td align="right">Asset-ID</td>
+      <td>
+        <a routerLink="/asset/{{transaction.assetId}}">{{transaction.assetId}}</a>
+      </td>
     </tr>
-
+    <tr>
+      <td align="right">Timestamp</td>
+      <td>{{transaction.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}</td>
+    </tr>
+    <tr>
+      <td align="right">Attachment</td>
+      <td>{{transaction.attachment}}</td>
+    </tr>
   </table>
 </div>
+
+
