@@ -55,9 +55,9 @@
                [sortableRowGroup]="false">
     <p-header>Transactions</p-header>
     <ng-template pTemplate="rowgroupheader" let-rowData>Type: {{rowData['type'] }}</ng-template>
-    <p-column field="id" header="id">
+    <p-column field="id" header="ID">
       <ng-template let-col let-transaction="rowData" pTemplate="body">
-        <span>{{transaction[col.field]| slice:0:8}}...</span>
+        <span><a routerLink="/transaction/{{transaction[col.field]}}">{{transaction[col.field]| slice:0:8}}...</a></span>
       </ng-template>
     </p-column>
     <p-column field="timestamp" header="Timestamp">
@@ -65,27 +65,28 @@
         {{row.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}
       </ng-template>
     </p-column>
-    <p-column field="sender" header="sender">
+    <p-column field="sender" header="Sender">
       <ng-template let-col let-transaction="rowData" pTemplate="body">
         <span>{{transaction[col.field]| slice:0:8}}...</span>
       </ng-template>
     </p-column>
-    <p-column field="recipient" header="recipient">
+    <p-column field="recipient" header="Recipient">
       <ng-template let-col let-transaction="rowData" pTemplate="body">
         <span>{{transaction[col.field]| slice:0:8}}...</span>
       </ng-template>
     </p-column>
-    <p-column field="amount" header="amount">
+    <p-column field="amount" header="Amount">
       <ng-template let-col let-transaction="rowData" pTemplate="body">
         <span>{{transaction[col.field]/100000000 | number:'0.0-10'}}</span>
       </ng-template>
     </p-column>
+    <!--
     <p-column field="asset" header="asset">
       <ng-template let-col let-transaction="rowData" pTemplate="body">
         <span>{{transaction[col.field]}}</span>
       </ng-template>
     </p-column>
-
+    -->
 
 
     <!--
