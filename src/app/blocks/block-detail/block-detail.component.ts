@@ -51,7 +51,6 @@ export class BlockDetailComponent implements OnInit {
        this.wavesApiService.getBlockAt(height)
          .subscribe(block => this.block = block);
        this.loading = false;
-       //this.getTransactions();
      }, 1000);
   }
 
@@ -72,10 +71,8 @@ export class BlockDetailComponent implements OnInit {
   }
 
   getTransactions(){
-
     for(let transaction in this.block.transactions){
       console.log(transaction)
-      //priceListMap.set(transaction.type, transaction.assetId)
     }
   }
 
