@@ -58,13 +58,6 @@
   </p-column>
   <p-column field="givenname" header="First Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
   <p-column field="surename" header="Last Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <!--
-  <p-column field="givenname" header="Name" [style]="{'width':'250px'}">
-    <ng-template let-row="rowData" pTemplate="body">
-      <a>{{row.givenname}} {{row.surename}}</a>
-    </ng-template>
-  </p-column>
-  !-->
   <p-column field="address" header="Address">
     <ng-template let-row="rowData" pTemplate type="body">
       <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>

@@ -28,28 +28,6 @@ export class GroupDetailComponent implements OnInit {
     private location: Location,
     private settingsService: SettingsService,
   ) {
-    /*this.data = {
-      //labels: ['A','B','C','D','E'],
-      datasets: [
-        {
-          //data: [300, 50, 100, 100, 100],
-          backgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#76ebb2",
-            "#eb56e6",
-            "#FFCE56"
-          ],
-          hoverBackgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#76ebb2",
-            "#eb56e6",
-            "#FFCE56"
-          ]
-        }]
-    };
-    */
   }
 
   ngOnInit() {

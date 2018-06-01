@@ -33,11 +33,6 @@
   <div *ngFor="let user of users;">
     <div *ngFor="let group of user.squads">
       <a *ngIf="group.name ">{{group.name}} {{user.surename}}</a>
-      <!--
-      <div *ngFor="let address of addresses">
-          <a>{{address.available}}</a>
-        </div>
-!-->
     </div>
   </div>
 

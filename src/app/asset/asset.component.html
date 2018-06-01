@@ -3,11 +3,11 @@
   <p><button (click)="goBack()">go back</button></p>
   <table width="100%">
     <tr>
-      <th align="right">details</th>
+      <th align="right">Details</th>
       <th></th>
     </tr>
     <tr>
-      <td align=right>asset ID</td>
+      <td align=right>Asset-ID</td>
       <td>{{asset.assetId}}</td>
     </tr>
     <tr>
@@ -35,12 +35,12 @@
       <td>{{asset.decimals}}</td>
     </tr>
     <tr>
-      <td align="right">reissuable</td>
+      <td align="right">Reissuable</td>
       <td>{{asset.reissuable}}</td>
     </tr>
     <tr>
       <td align="right">Quantity</td>
-      <td>{{asset.quantity}}</td>
+      <td>{{asset.quantity/100000000}}</td>
     </tr>
   </table>
 </div>
