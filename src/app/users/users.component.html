@@ -56,8 +56,8 @@
       <button routerLink="/users/detail/{{row.id}}" type="button" pButton (click)="selectUser()" icon="fa-edit"></button>
     </ng-template>
   </p-column>
-  <p-column field="givenname" header="First Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <p-column field="surename" header="Last Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
+  <p-column field="givenname" header="First name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
+  <p-column field="surename" header="Last name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
   <p-column field="address" header="Address">
     <ng-template let-row="rowData" pTemplate type="body">
       <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {User} from "../users/user";
-import {catchError, tap} from "rxjs/operators";
-import {Observable} from "rxjs/Observable";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {MessageService} from "../message.service";
-import {SettingsService} from "./settings.service";
-import {Group} from "../groups/group";
-import {of} from "rxjs/observable/of";
+import {User} from '../users/user';
+import {catchError, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MessageService} from '../message.service';
+import {SettingsService} from './settings.service';
+import {Group} from '../groups/group';
+import {of} from 'rxjs/observable/of';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

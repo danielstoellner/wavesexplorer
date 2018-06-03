@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Location} from "@angular/common";
-import {Group} from "../group";
-import {User} from "../../users/user";
-import {Address} from "../../addresses/address";
-import {WavesApiService} from "../../common/waves-api.service";
-import {BackendApiService} from "../../common/backend-api.service";
-import {SettingsService} from "../../common/settings.service";
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Group} from '../group';
+import {User} from '../../users/user';
+import {Address} from '../../addresses/address';
+import {WavesApiService} from '../../common/waves-api.service';
+import {BackendApiService} from '../../common/backend-api.service';
+import {SettingsService} from '../../common/settings.service';
 
 @Component({
   selector: 'app-group-detail',
@@ -156,7 +156,6 @@ export class GroupDetailComponent implements OnInit {
               ]
             }]
         };
-        //this.data.labels = use;
       }
     }, 1000);
   }

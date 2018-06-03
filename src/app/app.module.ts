@@ -45,6 +45,7 @@ import {ChartModule} from "primeng/chart";
 import {WavesApiService} from "./common/waves-api.service";
 import {BackendApiService} from "./common/backend-api.service";
 import { UserimportComponent } from './userimport/userimport.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { UserimportComponent } from './userimport/userimport.component';
     AssetComponent,
     TransactionComponent,
     UserimportComponent,
+    StatisticsComponent,
 
   ],
   imports: [

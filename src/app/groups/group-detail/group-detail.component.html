@@ -1,7 +1,7 @@
 <div *ngIf="group">
   <h1>Details {{ group.name }} </h1>
   <button pButton type="button" (click)="save()" label="Save changes" class="ui-button-success"></button>
-  <button pButton type="button" (click)="delete(group)" label="Delete Group"  class="ui-button-danger"></button>
+  <button pButton type="button" (click)="delete(group)" label="Delete group"  class="ui-button-danger"></button>
 
   <p><button (click)="goBack()">go back</button></p>
   <table>
@@ -32,7 +32,7 @@
   </table>
   <div *ngFor="let user of users;">
     <div *ngFor="let group of user.squads">
-      <a *ngIf="group.name ">{{group.name}} {{user.surename}}</a>
+      <a *ngIf="group.name ">{{user.givenname}} {{user.surename}}</a>
     </div>
   </div>
 
