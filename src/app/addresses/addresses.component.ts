@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Address} from "./address";
-import {WavesApiService} from "../common/waves-api.service";
+import {Address} from './address';
+import {WavesApiService} from '../common/waves-api.service';
 
 @Component({
   selector: 'app-addresses',

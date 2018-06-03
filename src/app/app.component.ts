@@ -23,7 +23,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.getHeight();
     this.items = [{
        label: 'Home', icon: 'fa-home', routerLink: ['/dashboard']},
       {label: 'Blocks', icon: 'fa-download', routerLink: ['/blocks']},
@@ -39,5 +38,6 @@ export class AppComponent {
         }]
       }
     ];
+    this.getHeight();
   }
 }

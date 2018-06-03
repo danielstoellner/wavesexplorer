@@ -1,15 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <p-header showHeader="false">
-  <!--
-  <h1>Welcome to {{ title }}!</h1>
-  !-->
-
   <p-menubar [model]="items">
     <input #searchTerm placeholder="Search" type="text" pInputText>
     <button routerLink="/search/{{searchTerm.value}}" pButton (click)="searchTerm.value=''" label="Search" icon="fa-search" ></button>
   </p-menubar>
-
 </p-header>
+
 <p-panel>
   <p-header>
     {{ title }} <img src={{logo}} width="300" alt="Waves Logo" align="right" width="100px">
@@ -18,12 +14,10 @@
     <router-outlet></router-outlet>
   </div>
   <div class="ui">
-    <app-messages></app-messages>
+    <!-- <app-messages></app-messages> -->
   </div>
 
-
   <p-footer>
-
     <div class="ui-g">
       <div class="ui-g-4"></div>
       <div class="ui-g-4">
@@ -31,7 +25,5 @@
       </div>
       <div class="ui-g-4"></div>
     </div>
-
-
   </p-footer>
 </p-panel>
