@@ -34,16 +34,11 @@ export class BlocksComponent implements OnInit {
 
   async getHeighestBlock() {
     const result: Block = await this.wavesApiService.getLatestBlock(this.height);
-    //console.log(result.blocksize);
   }
 
   async getBlockFromTo() {
     const result: Block[] = await this.wavesApiService.getBlockFromTo(this.height - 50, this.height);
     this.blocks = result;
-    /*this.blocks.forEach(p =>{
-      console.log(p.generator);
-    });*/
-    //console.log(result);
   }
 
 

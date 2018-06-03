@@ -1,4 +1,4 @@
-<h2 *ngIf="block">Details zu Block {{ block.height }}</h2>
+<h2 *ngIf="block">Block {{ block.height }}</h2>
 <p><button (click)="goBack()">go back</button></p>
 <table *ngIf="block" width="100%">
   <tr>
@@ -12,7 +12,6 @@
       {{block.height}}
       <button (click)="next()">next</button>
     </td>
-
   </tr>
   <tr>
     <td align=right>Version</td>
@@ -38,7 +37,7 @@
   </tr>
   <tr>
     <td align="right">Fee</td>
-    <td>{{block.fee}}</td>
+    <td>{{block.fee/100000000}}</td>
   </tr>
   <tr>
     <td align="right">TransactionCount</td>
@@ -50,79 +49,36 @@
   </tr>
 </table>
 
-<br>
-<div *ngIf="block" class="transactions">
-  <a ng-repeat="tra in block.transactions | filter:4">
-    TEST {{ tra.sender }}
-  </a>
-
-  <p-panel *ngFor="let transaction of block.transactions; index as i" header="Transaction {{i+1}} of {{block.transactionCount}}" [toggleable]="true" [collapsed]="true" [style]="{'margin-bottom':'0px', 'width':'100%'}">
-
-    <p-header>
-      <div class="ui-helper-clearfix">
-        <span class="ui-panel-title" style="font-size:10px;display:inline-block;margin-top:2px">Sender: {{transaction.sender}}</span><br>
-        <span class="ui-panel-title" style="font-size:10px;display:inline-block;margin-top:2px"><b>Recipient:</b> {{transaction.recipient}}</span>
-      </div>
-    </p-header>
-
-    <table class="transaction">
-      <tr>
-        <th align="right">Details</th>
-        <th></th>
-      </tr>
-      <tr>
-        <td align=right>Type</td>
-        <td>{{transaction.type}}</td>
-      </tr>
-      <tr>
-        <td align="right">Id</td>
-        <td>{{transaction.id}}</td>
-      </tr>
-      <tr>
-        <td align="right">Sender</td>
-        <td>{{transaction.sender}}</td>
-      </tr>
-      <tr>
-        <td align="right">SenderPublicKey</td>
-        <td>{{transaction.senderPublicKey}}</td>
-      </tr>
-      <tr>
-        <td align="right">Fee</td>
-        <td>{{transaction.fee}}</td>
-      </tr>
-      <tr>
-        <td align="right">Timestamp</td>
-        <td>{{transaction.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}</td>
-      </tr>
-      <tr>
-        <td align="right">signature</td>
-        <td>{{transaction.signature}}</td>
-      </tr>
-      <tr>
-        <td align="right">recipient</td>
-        <td>{{transaction.recipient}}</td>
-      </tr>
-      <tr>
-        <td align="right">assetId</td>
-        <td>
-          <a routerLink="/asset/{{transaction.assetId}}">{{transaction.assetId}}</a>
-        </td>
-      </tr>
-      <tr>
-        <td align="right">amount</td>
-        <td>{{transaction.amount}}</td>
-      </tr>
-      <tr>
-        <td align="right">feeAsset</td>
-        <td>{{transaction.feeAsset}}</td>
-      </tr>
-      <tr>
-        <td align="right">attachment</td>
-        <td>{{transaction.attachment}}</td>
-      </tr>
-    </table>
-  </p-panel>
+<div *ngIf="block">
+  <p-dataTable [value]="block.transactions" sortField="type" rowGroupMode="subheader" groupField="type" expandableRowGroups="true"
+               [sortableRowGroup]="false">
+    <p-header>Transactions</p-header>
+    <ng-template pTemplate="rowgroupheader" let-rowData>Type: {{rowData['type'] }}</ng-template>
+    <p-column field="id" header="ID">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span><a routerLink="/transaction/{{transaction[col.field]}}">{{transaction[col.field]| slice:0:8}}...</a></span>
+      </ng-template>
+    </p-column>
+    <p-column field="timestamp" header="Timestamp">
+      <ng-template let-row="rowData" pTemplate type="body">
+        {{row.timestamp | date:'dd. MMMM yyyy @ HH:mm'}}
+      </ng-template>
+    </p-column>
+    <p-column field="sender" header="Sender">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]| slice:0:8}}...</span>
+      </ng-template>
+    </p-column>
+    <p-column field="recipient" header="Recipient">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span *ngIf="transaction[col.field]">{{transaction[col.field]| slice:0:8}}...</span>
+      </ng-template>
+    </p-column>
+    <p-column field="amount" header="Amount">
+      <ng-template let-col let-transaction="rowData" pTemplate="body">
+        <span>{{transaction[col.field]/100000000 | number:'0.0-10'}}</span>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
 </div>
-
-
-
+<br>

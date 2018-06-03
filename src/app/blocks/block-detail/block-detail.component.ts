@@ -14,10 +14,10 @@ export class BlockDetailComponent implements OnInit {
   @Input()
   block: Block;
   height: number;
-  transactions: number[];
+  transactions: Transaction[];
+  transactions1: Transaction[];
   loading: boolean;
   priceListMap : Map<number, string> = new Map<number, string>();
-  transactionMap : Map<number, Transaction> = new Map<number, Transaction>();
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +39,7 @@ export class BlockDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBlock();
-
+    console.log(this.block);
 
   }
 
@@ -51,7 +51,6 @@ export class BlockDetailComponent implements OnInit {
        this.wavesApiService.getBlockAt(height)
          .subscribe(block => this.block = block);
        this.loading = false;
-       //this.getTransactions();
      }, 1000);
   }
 
@@ -72,19 +71,28 @@ export class BlockDetailComponent implements OnInit {
   }
 
   getTransactions(){
-
     for(let transaction in this.block.transactions){
       console.log(transaction)
-      //priceListMap.set(transaction.type, transaction.assetId)
     }
-    this.transactions = [1,2,3];
   }
 
   getKeys(map){
     return Array.from(map);
   }
 
+  calculateGroupTotal(brand: number) {
+    let total = 0;
 
+    if(this.transactions) {
+      for(let transaction of this.transactions1) {
+        if(transaction.type === brand) {
+          total += transaction.amount;
+        }
+      }
+    }
+
+    return total;
+  }
 
 }
 

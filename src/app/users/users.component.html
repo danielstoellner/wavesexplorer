@@ -14,19 +14,19 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Givenname *:
+      First Name *:
     </div>
     <div class="ui-grid-col-6">
-      <input #givenname placeholder="Givenname"/>
+      <input #givenname placeholder="First Name"/>
     </div>
     <div class="ui-grid-col-4"></div>
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Surename *:
+      Last Name *:
     </div>
     <div class="ui-grid-col-6">
-      <input #surename placeholder="Sureename"/>
+      <input #surename placeholder="Last Name"/>
     </div>
     <div class="ui-grid-col-4"></div>
   </div>
@@ -56,15 +56,8 @@
       <button routerLink="/users/detail/{{row.id}}" type="button" pButton (click)="selectUser()" icon="fa-edit"></button>
     </ng-template>
   </p-column>
-  <p-column field="givenname" header="Givenname" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <p-column field="surename" header="Surename" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <!--
-  <p-column field="givenname" header="Name" [style]="{'width':'250px'}">
-    <ng-template let-row="rowData" pTemplate="body">
-      <a>{{row.givenname}} {{row.surename}}</a>
-    </ng-template>
-  </p-column>
-  !-->
+  <p-column field="givenname" header="First Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
+  <p-column field="surename" header="Last Name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
   <p-column field="address" header="Address">
     <ng-template let-row="rowData" pTemplate type="body">
       <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>
