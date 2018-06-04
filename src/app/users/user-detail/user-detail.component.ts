@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../user';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {Group} from "../../groups/group";
-import {WavesApiService} from "../../common/waves-api.service";
-import {BackendApiService} from "../../common/backend-api.service";
+import {Group} from '../../groups/group';
+import {WavesApiService} from '../../common/waves-api.service';
+import {BackendApiService} from '../../common/backend-api.service';
 
 @Component({
   selector: 'app-user-detail',

@@ -13,6 +13,7 @@ import {SettingsService} from '../../common/settings.service';
   templateUrl: './group-detail.component.html',
   styleUrls: ['./group-detail.component.css']
 })
+
 export class GroupDetailComponent implements OnInit {
   @Input()
   group: Group;
@@ -50,13 +51,13 @@ export class GroupDetailComponent implements OnInit {
   }
 
   async getUsers() {
-    console.log("1 GET USER");
+    console.log('1 GET USER');
     var result: User[] = await this.backendApiService.getUsersPromise();
     this.users = result;
   }
 
   async getAddresses(){
-    console.log("2 GET ADDRESSES");
+    console.log('2 GET ADDRESSES');
     var i : number;
     for(let user of this.users){
       var result: Address = await this.wavesApiService.getBalancePromise(user.address);
@@ -105,7 +106,7 @@ export class GroupDetailComponent implements OnInit {
   }
 
   loadChart(): void {
-    console.log("3 LOAD CHART");
+    console.log('3 LOAD CHART');
     var use: string[] =[];
     var dataBalance: number[] = [];
     setTimeout(() => {
@@ -119,9 +120,9 @@ export class GroupDetailComponent implements OnInit {
             if (this.users[i].squads[0].id == this.group.id) {
 
               use.push(this.users[i].givenname.toString());
-              dataBalance.push(this.addresses[i].available.valueOf()/this.settingsService.currencyMuliplicator);
+              dataBalance.push(this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator);
 
-              console.log(this.users[i].givenname.toString() + " " +(this.addresses[i].available.valueOf()/this.settingsService.currencyMuliplicator));
+              console.log(this.users[i].givenname.toString() + ' ' + (this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator));
             }
           }
         }
@@ -131,28 +132,28 @@ export class GroupDetailComponent implements OnInit {
             {
               data: dataBalance,
               backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#76ebb2",
-                "#eb56e6",
-                "#FFCE56",
-                "#FF6384",
-                "#36A2EB",
-                "#76ebb2",
-                "#eb56e6",
-                "#FFCE56"
+                '#FF6384',
+                '#36A2EB',
+                '#76ebb2',
+                '#eb56e6',
+                '#FFCE56',
+                '#FF6384',
+                '#36A2EB',
+                '#76ebb2',
+                '#eb56e6',
+                '#FFCE56'
               ],
               hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#76ebb2",
-                "#eb56e6",
-                "#FFCE56",
-                "#FF6384",
-                "#36A2EB",
-                "#76ebb2",
-                "#eb56e6",
-                "#FFCE56"
+                '#FF6384',
+                '#36A2EB',
+                '#76ebb2',
+                '#eb56e6',
+                '#FFCE56',
+                '#FF6384',
+                '#36A2EB',
+                '#76ebb2',
+                '#eb56e6',
+                '#FFCE56'
               ]
             }]
         };

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
-import {Block} from "../block";
-import {Transaction} from "../transaction";
-import {WavesApiService} from "../../common/waves-api.service";
+import {Block} from '../block';
+import {Transaction} from '../transaction';
+import {WavesApiService} from '../../common/waves-api.service';
 
 @Component({
   selector: 'app-block-detail',

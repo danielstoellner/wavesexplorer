@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-import {BackendApiService} from "../common/backend-api.service";
-import {User} from "../users/user";
+import {BackendApiService} from '../common/backend-api.service';
+import {User} from '../users/user';
 
 @Component({
   selector: 'app-userimport',

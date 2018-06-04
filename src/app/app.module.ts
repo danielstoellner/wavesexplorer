@@ -26,7 +26,7 @@ import {DataTableModule} from 'primeng/datatable';
 import { PeerComponent } from './peer/peer.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { BlocksComponent } from './blocks/blocks.component';
-import {UtilsModule} from "./utils/utils.module";
+import {UtilsModule} from './utils/utils.module';
 import { BlockDetailComponent } from './blocks/block-detail/block-detail.component';
 import {TreeTableModule} from 'primeng/treetable';
 import {TableModule} from 'primeng/table';
@@ -41,9 +41,9 @@ import { SearchComponent } from './search/search.component';
 import { SearchService } from './search/search.service';
 import { AssetComponent } from './asset/asset.component';
 import { TransactionComponent } from './transaction/transaction.component';
-import {ChartModule} from "primeng/chart";
-import {WavesApiService} from "./common/waves-api.service";
-import {BackendApiService} from "./common/backend-api.service";
+import {ChartModule} from 'primeng/chart';
+import {WavesApiService} from './common/waves-api.service';
+import {BackendApiService} from './common/backend-api.service';
 import { UserimportComponent } from './userimport/userimport.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
@@ -67,8 +67,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     AssetComponent,
     TransactionComponent,
     UserimportComponent,
-    StatisticsComponent,
-
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

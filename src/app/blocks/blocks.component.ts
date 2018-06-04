@@ -27,7 +27,6 @@ export class BlocksComponent implements OnInit {
   async getHeight() {
     const result: BlockHeight = await this.wavesApiService.getHeight();
     this.height = result.height;
-    //console.log(result.height);
     this.getHeighestBlock();
     this.getBlockFromTo();
   }

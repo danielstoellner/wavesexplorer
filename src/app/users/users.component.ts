@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from './user';
-import {Message } from "primeng/api";
-import {BackendApiService} from "../common/backend-api.service";
+import {Message } from 'primeng/api';
+import {BackendApiService} from '../common/backend-api.service';
 
 @Component({
   selector: 'app-users',
@@ -19,8 +19,6 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    //this.getUsers();
     this.refresh();
 
   }
@@ -58,6 +56,6 @@ export class UsersComponent implements OnInit {
 
   selectUser(user: User) {
     this.msgs = [];
-    this.msgs.push({severity:'info', summary:'User Select', detail:'Vin: '});
+    this.msgs.push({severity: 'info', summary: 'User Select', detail: 'Vin: '});
   }
 }

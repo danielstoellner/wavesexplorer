@@ -68,18 +68,6 @@ export class WavesApiService {
     ).toPromise();
   }
 
-  /*
-  getBalanceFromAddress(address: string): number {
-    const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
-    this.log("call " + url);
-    const addr: Address = this.http.get<Address>(url).pipe(
-      tap(_ => this.log(`fetched balance=${address}`)),
-      catchError(this.handleError<Address>('getAddresses'))
-    ).toPromise();
-    return addr.available;
-  }
-  */
-
   /** GET hero by id. Will 404 if id not found */
   getTransactions(address: string, count: number): Observable<Transaction[]> {
     this.log("call " + address + count);

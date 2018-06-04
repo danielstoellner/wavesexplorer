@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Transaction} from "./transaction";
-import {ActivatedRoute} from "@angular/router";
-import {Location} from "@angular/common";
-import {WavesApiService} from "../common/waves-api.service";
+import {Transaction} from './transaction';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {WavesApiService} from '../common/waves-api.service';
 
 @Component({
   selector: 'app-transaction',

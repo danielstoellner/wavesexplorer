@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PeerModel} from "./peer";
-import {WavesApiService} from "../common/waves-api.service";
+import { PeerModel} from './peer';
+import {WavesApiService} from '../common/waves-api.service';
 
 @Component({
   selector: 'app-peer',
