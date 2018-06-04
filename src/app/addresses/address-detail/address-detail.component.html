@@ -11,19 +11,19 @@
       <th></th>
     </tr>
     <tr>
-      <td align=right>Regular Balance</td>
+      <td align=right>Regular balance</td>
       <td>{{address.regular/100000000 | number:'0.0-10'}}</td>
     </tr>
     <tr>
-      <td align="right">Generating Balance</td>
+      <td align="right">Generating balance</td>
       <td>{{address.generating/100000000 | number:'0.0-4'}}</td>
     </tr>
     <tr>
-      <td align="right">Available Balance</td>
+      <td align="right">Available balance</td>
       <td>{{address.available/100000000 | number:'0.0-10'}}</td>
     </tr>
     <tr>
-      <td align="right">Effective Balance</td>
+      <td align="right">Effective balance</td>
       <td>{{address.effective/100000000 | number:'0.0-4'}}</td>
     </tr>
   </table>
@@ -31,8 +31,8 @@
 
 <div *ngIf="transactions">
   <p-dataTable [value]="transactions[0]" [rows]="25" [paginator]="true" sortField="height"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true">
-    <p-header>List of Transactions</p-header>
-    <p-footer>There are 100 Transactions</p-footer>
+    <p-header>List of transactions</p-header>
+    <p-footer>There are 100 transactions</p-footer>
     <p-column field="id" header="id" [sortable]="true" [style]="{'width':'150px'}">
       <ng-template let-col let-row='rowData' pTemplate type="body">
         <a routerLink="/transaction/{{row[col.field]}}">{{row[col.field] | slice:0:8}}...</a>

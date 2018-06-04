@@ -1,8 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
+
 <p-header showHeader="false">
-  <!--
-  <h1>Welcome to {{ title }}!</h1>
-  !-->
 
   <p-menubar [model]="items">
     <input #searchTerm placeholder="Search" type="text" pInputText>
@@ -17,21 +14,17 @@
   <div class="ui">
     <router-outlet></router-outlet>
   </div>
-  <!--<div class="ui">
+  <div class="ui">
     <app-messages></app-messages>
-  </div>-->
-
+  </div>
 
   <p-footer>
-
     <div class="ui-g">
       <div class="ui-g-4"></div>
       <div class="ui-g-4">
-        <footer> &copy; Copyright 2018, <br> Current height:{{height}}</footer>
+        <footer> &copy; Copyright 2018 <br> Current height:{{height}}</footer>
       </div>
       <div class="ui-g-4"></div>
     </div>
-
-
   </p-footer>
 </p-panel>

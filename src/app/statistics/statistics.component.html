@@ -1,0 +1,49 @@
+<h1>
+  Statistics
+</h1>
+
+<div class="pr-3 pl-3"><i class="la la-filter la-2x"></i></div>
+<select id="stat-period" class="selectpicker show-tick" title="Select Period">
+  <option value="0" selected>All Time</option>
+  <option value="30">30 Days</option>
+  <option value="60">60 Days</option>
+  <option value="180">180 Days</option>
+  <option value="365">1 Year</option>
+</select>
+
+<table style="width:100%">
+  <tr>
+    <td>
+      <h3>Total Transactions</h3>
+    </td>
+    <td>
+      <h3>Avg. Block Size</h3>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="totalTransactions" height="200"></canvas>
+    </td>
+    <td>
+      <canvas id="AVGBlocksize" height="200"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3>Transaction Types</h3>
+    </td>
+    <td>
+      <h3>Avg. Transactions per Block</h3>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="transactionTypes" height="200"></canvas>
+    </td>
+    <td>
+      <canvas id="transactionsPerBlock" height="200"></canvas>
+    </td>
+  </tr>
+
+</table>
+

@@ -23,7 +23,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.getHeight();
     this.items = [{
        label: 'Home', icon: 'fa-home', routerLink: ['/dashboard']},
       {label: 'Blocks', icon: 'fa-server', routerLink: ['/blocks']},
@@ -31,9 +30,10 @@ export class AppComponent {
       {label: 'Users', icon: 'fa-user', routerLink: ['/users']},
       {label: 'User Import', icon: 'fa-file-excel-o', routerLink: ['/userimport']},
       {label: 'Groups', icon: 'fa-group', routerLink: ['/groups']},
-      {label: 'Statistics', icon: 'fa-pie-chart', routerLink: ['/groups']},
+      {label: 'Statistics', icon: 'fa-pie-chart', routerLink: ['/statistics']},
       {label: 'Wallet', icon: 'fa-credit-card', url: 'https://beta.wavesplatform.com/'},
       {label: 'Node', icon: 'fa-database', routerLink: ['/addresses']}
     ];
+    this.getHeight();
   }
 }
