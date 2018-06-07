@@ -28,6 +28,9 @@ export class UserDetailComponent implements OnInit {
     this.refresh();
   }
 
+  /**
+   * Aktualisieren
+   */
   refresh() {
     this.loading = true;
     setTimeout(() => {
@@ -40,6 +43,9 @@ export class UserDetailComponent implements OnInit {
 
   }
 
+  /**
+   * ID für neuerstellte User
+   */
   getUser(): void {
     const id = + this.route.snapshot.paramMap.get('id');
     this.backendApiService.getUser(id)
@@ -50,11 +56,17 @@ export class UserDetailComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * Änderungen/neue User speichern
+   */
   save(): void {
     this.backendApiService.updateUser(this.user)
       .subscribe(() => this.goBack());
   }
 
+  /**
+   * User löschen
+   */
   delete(): void {
     const result = this.backendApiService.deleteUser(this.user).subscribe();
     this.goBack();

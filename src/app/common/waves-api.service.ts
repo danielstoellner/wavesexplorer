@@ -31,6 +31,11 @@ export class WavesApiService {
     private settingService: SettingsService
   ) { }
 
+  /**
+   * Liefert die Addressen zurück
+   *
+   * @returns {Observable<Address[]>}
+   */
   getAddresses(): Observable<Address[]> {
     this.log("call " + this.settingService.serverPath + this.addressesUrl);
     return this.http.get<Address[]>(this.settingService.serverPath + this.addressesUrl)
@@ -40,6 +45,11 @@ export class WavesApiService {
       );
   }
 
+  /**
+   * Liefert die Addressen zurück
+   *
+   * @returns {Promise<Address[]>}
+   */
   getAddressesPromise(): Promise<Address[]> {
     this.log("call " + this.settingService.serverPath + this.addressesUrl);
     return this.http.get<Address[]>(this.settingService.serverPath + this.addressesUrl)
@@ -50,6 +60,11 @@ export class WavesApiService {
   }
 
   /** GET hero by id. Will 404 if id not found */
+  /**
+   * Liefert die Bilanzen eines Blockes zurück
+   * @param {string} address
+   * @returns {Observable<Address>}
+   */
   getBalance(address: string): Observable<Address> {
     const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
     this.log("call " + url);
@@ -59,6 +74,11 @@ export class WavesApiService {
     );
   }
 
+  /**
+   * Liefert die Bilanzen eines Blockes zurück
+   * @param {string} address
+   * @returns {Promise<Address>}
+   */
   getBalancePromise(address: string): Promise<Address> {
     const url = `${this.settingService.serverPath + this.addressesUrl }/balance/details/${address}`;
     this.log("call " + url);
@@ -69,6 +89,12 @@ export class WavesApiService {
   }
 
   /** GET hero by id. Will 404 if id not found */
+  /**
+   * Liefert die Transaktionenen in einem Block zurück
+   * @param {string} address
+   * @param {number} count
+   * @returns {Observable<Transaction[]>}
+   */
   getTransactions(address: string, count: number): Observable<Transaction[]> {
     this.log("call " + address + count);
     const url = `${this.settingService.serverPath}transactions/address/${address}/limit/${count}`;
@@ -85,6 +111,7 @@ export class WavesApiService {
    */
 
   /*
+   *Liefert den Betrag zu einer Transaktion
    * Assets
    * @param {string} assetId
    * @returns {Observable<Asset>}
@@ -100,6 +127,12 @@ export class WavesApiService {
   /*
   BLOCK
    */
+
+  /**
+   * Liefert die aktuelle Höhe der gesamten Blockchain zurück
+   *
+   * @returns {Promise<BlockHeight>}
+   */
   getHeight (): Promise<BlockHeight> {
     this.log("call " + this.settingService.serverPath + this.blockUrl + 'height');
     return this.http.get<BlockHeight>(this.settingService.serverPath + this.blockUrl + 'height')
@@ -110,6 +143,11 @@ export class WavesApiService {
       .toPromise();
   }
 
+  /**
+   * Liefert den letzten Block zurück
+   * @param {number} height
+   * @returns {Promise<Block>}
+   */
   getLatestBlock(height: number): Promise<Block> {
     const url = `${this.settingService.serverPath + this.blockUrl }at/` + height;
     this.log(url);
@@ -137,6 +175,11 @@ export class WavesApiService {
       .toPromise();
   }
 
+  /**
+   * Liefert die Blocksignatur zurück
+   * @param {string} signature
+   * @returns {Observable<Block>}
+   */
   getBlockSignature(signature: string): Observable<Block> {
     const url = `${this.settingService.serverPath + this.blockUrl }signature/${signature}`;
     return this.http.get<Block>(url).pipe(
@@ -145,6 +188,12 @@ export class WavesApiService {
     );
   }
 
+  /**
+   * Liefert die ID von den Blöcken, die an der Transaktion beteiligt sind
+   * @param {number} from
+   * @param {number} to
+   * @returns {Promise<Block[]>}
+   */
   getBlockFromTo(from: number, to: number): Promise<Block[]> {
     const url = `${this.settingService.serverPath + this.blockUrl }seq/${from}/${to}`;
     return this.http.get<Block[]>(url)
@@ -154,6 +203,12 @@ export class WavesApiService {
       .toPromise();
   }
 
+  /**
+   * Liefert die ID von den Blöcken, die an der Transaktion beteiligt sind
+   * @param {number} from
+   * @param {number} to
+   * @returns {Observable<Block[]>}
+   */
   getBlockFromTo2 (from: number, to: number): Observable<Block[]> {
     const url = `${this.settingService.serverPath + this.blockUrl }seq/${from}/${to}`;
     return this.http.get<Block[]>(url)
@@ -163,6 +218,10 @@ export class WavesApiService {
       );
   }
 
+  /**
+   * Liefert die Höhe eines Blockes
+   * @returns {Observable<BlockHeight[]>}
+   */
   getBlockHeight(): Observable<BlockHeight[]> {
     this.log("call " + this.settingService.serverPath + this.blockUrl + 'height');
 
@@ -173,7 +232,10 @@ export class WavesApiService {
       );
   }
 
-  /* GET blcoks whose id contains search term */
+  /** GET blocks whose id contains search term
+   * @param {string} term
+   * @returns {Observable<Block[]>}
+   */
   searchBlocks(term: string): Observable<Block[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -188,7 +250,9 @@ export class WavesApiService {
   /*
   PEERS
    */
-  /** GET peers from the server */
+  /** GET peers from the server
+   * @returns {Observable<PeerModel[]>}
+   */
   getPeers (): Observable<PeerModel[]> {
     return this.http.get<PeerModel[]>(this.settingService.serverPath + this.peersUrl )
       .pipe(
@@ -199,6 +263,11 @@ export class WavesApiService {
 
   /*
   TRANSACTIONS
+   */
+  /**
+   * Liefert Transaktionen zurück
+   * @param {string} transactionId
+   * @returns {Observable<Transaction>}
    */
   getTransaction(transactionId: string): Observable<Transaction> {
     const url = `${this.settingService.serverPath + this.transactionUrl }${transactionId}`;
