@@ -23,6 +23,9 @@ export class AssetComponent implements OnInit {
     this.getAssetId();
   }
 
+  /**
+   * Liefert den aktuellen "Kontostand" einer Wallet-Adresse
+   */
   getAssetId() {
     var assetId = this.route.snapshot.paramMap.get('assetId');
     this.wavesApiService.getAssetById(assetId)
@@ -33,6 +36,9 @@ export class AssetComponent implements OnInit {
     this.stacked = !this.stacked;
   }
 
+  /**
+   * "Zurück"-Button
+   */
   goBack(): void {
     this.location.back();
   }
