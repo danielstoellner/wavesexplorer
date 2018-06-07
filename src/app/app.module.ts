@@ -46,6 +46,8 @@ import {WavesApiService} from './common/waves-api.service';
 import {BackendApiService} from './common/backend-api.service';
 import { UserimportComponent } from './userimport/userimport.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import {TabViewModule} from 'primeng/tabview';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     GrowlModule,
     PickListModule,
     ChartModule,
+    TabViewModule,
+    DialogModule,
   ],
   providers: [
     MessageService,
