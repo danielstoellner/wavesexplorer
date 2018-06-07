@@ -1,66 +1,91 @@
-<h1>Users list</h1>
+<h1>Members Managment list</h1>
 
-<button pButton type="button" label="Add new User" (click)="add(username.value, givenname.value, surename.value, address.value); username.value=''; givenname.value=''; surename.value=''; address.value=''"></button>
+<p-tabView>
+  <p-tabPanel header="Users" leftIcon="fa-user">
+    <p-dialog header="Add new user" [(visible)]="display" [modal]="true" [responsive]="true" [width]="500" [minWidth]="300">
+    <span>
 
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Username *:
-    </div>
-    <div class="ui-grid-col-6">
-      <input #username placeholder="Username"/>
-    </div>
-    <div class="ui-grid-col-4"></div>
-  </div>
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      First Name *:
-    </div>
-    <div class="ui-grid-col-6">
-      <input #givenname placeholder="First Name"/>
-    </div>
-    <div class="ui-grid-col-4"></div>
-  </div>
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Last Name *:
-    </div>
-    <div class="ui-grid-col-6">
-      <input #surename placeholder="Last Name"/>
-    </div>
-    <div class="ui-grid-col-4"></div>
-  </div>
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Address *:
-    </div>
-    <div class="ui-grid-col-6">
-      <input #address placeholder="Address"/>
-    </div>
-    <div class="ui-grid-col-4"></div>
-  </div>
-</div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            Username *:
+          </div>
+          <div class="ui-grid-col-10">
+            <input #username placeholder="Username"/>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            First Name *:
+          </div>
+          <div class="ui-grid-col-10">
+            <input #givenname placeholder="First Name"/>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            Last Name *:
+          </div>
+          <div class="ui-grid-col-10">
+            <input #surename placeholder="Last Name"/>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            Address *:
+          </div>
+          <div class="ui-grid-col-10">
+            <input #address placeholder="Address"/>
+          </div>
+        </div>
+      </div>
 
-<br>
-<button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"></button>
+      </span>
+      <p-footer>
+        <button pButton type="button" icon="pi pi-check" label="Ok" (click)="add(username.value, givenname.value, surename.value, address.value); username.value=''; givenname.value=''; surename.value=''; address.value=''"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Cancel"></button>
+      </p-footer>
+    </p-dialog>
 
-<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-  <input #gb type="text" pInputText size="50" placeholder="Global Filter">
-</div>
-<p-growl [value]="msgs"></p-growl>
-<p-dataTable [value]="users" [loading]="loading" [rows]="25" [paginator]="true" sortField="surename" [sortOrder]="-1" [responsive]="true" [stacked]="stacked" [globalFilter]="gb" #dt>
+    <button type="text" (click)="showDialog()" pButton icon="fa-plus-square" label="Add new user"></button>
+    <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toogle View" icon="fa-list"></button>
 
-  <p-column styleClass="col-button" [style]="{'width':'50px'}">
-    <ng-template let-row="rowData" pTemplate="body">
-      <button routerLink="/users/detail/{{row.id}}" type="button" pButton (click)="selectUser()" icon="fa-edit"></button>
-    </ng-template>
-  </p-column>
-  <p-column field="givenname" header="First name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <p-column field="surename" header="Last name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
-  <p-column field="address" header="Address">
-    <ng-template let-row="rowData" pTemplate type="body">
-      <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>
-    </ng-template>
-  </p-column>
-</p-dataTable>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+    </div>
+    <p-growl [value]="msgs"></p-growl>
+    <p-dataTable [value]="users" [loading]="loading" [rows]="25" [paginator]="true" sortField="surename" [sortOrder]="-1" [responsive]="true" [stacked]="stacked" [globalFilter]="gb" #dt>
+
+      <p-column styleClass="col-button" [style]="{'width':'50px'}">
+        <ng-template let-row="rowData" pTemplate="body">
+          <button routerLink="/users/detail/{{row.id}}" type="button" pButton (click)="selectUser()" icon="fa-edit"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="givenname" header="First name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
+      <p-column field="surename" header="Last name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
+      <p-column field="address" header="Address">
+        <ng-template let-row="rowData" pTemplate type="body">
+          <a routerLink="/addresses/detail/{{row.address}}">{{row.address | slice:0:8}}...</a>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+
+
+
+  </p-tabPanel>
+
+
+
+
+  <p-tabPanel header="Groups" leftIcon="fa-group">
+    <app-groups></app-groups>
+  </p-tabPanel>
+  <p-tabPanel header="Statistics" leftIcon="fa-bar-chart">
+
+  </p-tabPanel>
+  <p-tabPanel header="User Import" leftIcon="fa-cloud-upload">
+    <app-userimport></app-userimport>
+  </p-tabPanel>
+
+</p-tabView>
