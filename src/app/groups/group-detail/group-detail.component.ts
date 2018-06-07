@@ -40,6 +40,7 @@ export class GroupDetailComponent implements OnInit {
     setTimeout(() => {
       this.getGroup();
       this.getUsers().then(() => this.getAddresses()).then(() => this.loadChart());
+
       this.loading = false;
     }, 1000);
   }
@@ -52,8 +53,9 @@ export class GroupDetailComponent implements OnInit {
 
   async getUsers() {
     console.log('1 GET USER');
-    var result: User[] = await this.backendApiService.getUsersPromise();
+    const result: User[] = await this.backendApiService.getUsersPromise();
     this.users = result;
+
   }
 
   async getAddresses(){
@@ -61,7 +63,6 @@ export class GroupDetailComponent implements OnInit {
     var i : number;
     for(let user of this.users){
       var result: Address = await this.wavesApiService.getBalancePromise(user.address);
-      //
       console.log(result);
       this.addresses.push(result);
       i++;
