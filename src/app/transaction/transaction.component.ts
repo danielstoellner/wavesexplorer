@@ -23,6 +23,9 @@ export class TransactionComponent implements OnInit {
     this.getTransaction();
   }
 
+  /**
+   * Transaktionen erstellen
+   */
   getTransaction() {
     const transactionId = this.route.snapshot.paramMap.get('transactionId');
     this.wavesApiService.getTransaction(transactionId)

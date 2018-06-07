@@ -25,6 +25,9 @@ export class StatisticsComponent implements OnInit {
     this.generateStatistics();
   }
 
+  /**
+   * erstellt Statistiken
+   */
   generateStatistics() {
     // Total Transactions
     this.stat = document.getElementById('totalTransactions');
@@ -46,6 +49,10 @@ export class StatisticsComponent implements OnInit {
       }
     });
 
+    /**
+     * Liefert die Durchschnittlichen Blockgrößen je Monat zurück
+     * @type {HTMLElement | null}
+     */
     // AVG Blocksize
     this.stat1 = document.getElementById('AVGBlocksize');
     this.avgBlocksize = this.stat1.getContext('2d');
@@ -66,7 +73,11 @@ export class StatisticsComponent implements OnInit {
       }
     });
 
-    // Transaction Types
+    // Transaction Types>
+    /**
+     * Liefert Statistiken zu verschiedenen Transaktionstypen zurück
+     * @type {HTMLElement | null}
+     */
     this.stat2 = document.getElementById('transactionTypes');
     this.transactionTypes = this.stat2.getContext('2d');
     const transactionTypes = new Chart(this.transactionTypes, {
@@ -96,6 +107,10 @@ export class StatisticsComponent implements OnInit {
     });
 
     // Transactions per Block
+    /**
+     * Liefert Statistiken zu Transaktionen per Block
+     * @type {HTMLElement | null}
+     */
     this.stat3 = document.getElementById('transactionsPerBlock');
     this.transactionsPerBlock = this.stat3.getContext('2d');
     const transactionsPerBlock = new Chart(this.transactionsPerBlock, {

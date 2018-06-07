@@ -23,6 +23,9 @@ export class UsersComponent implements OnInit {
 
   }
 
+  /**
+   * Aktualisieren
+   */
   refresh() {
     this.loading = true;
     setTimeout(() => {
@@ -31,11 +34,19 @@ export class UsersComponent implements OnInit {
     }, 1000);
   }
 
+
   getUsers(): void {
     this.backendApiService.getUsers()
       .subscribe(users => this.users = users);
   }
 
+  /**
+   * Anlegen eines neuen Users
+   * @param {string} username
+   * @param {string} givenname
+   * @param {string} surename
+   * @param {string} address
+   */
   add(username: string, givenname: string, surename: string, address: string): void {
     username = username.trim();
     givenname = givenname.trim();
