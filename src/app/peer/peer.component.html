@@ -1,4 +1,4 @@
-<h2>Peers list</h2>
+<h1>Peers list</h1>
 
 <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle view" icon="fa-list"></button>
 <p-dataTable [value]="peersModel.peers" [rows]="50" [paginator]="true" sortField="lastSeen"  [sortOrder]="-1" [pageLinks]="2" [responsive]="true" [stacked]="stacked">

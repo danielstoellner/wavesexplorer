@@ -31,12 +31,13 @@
     </tr>
   </table>
 <br>
-  <b>Team members</b>
-  <div *ngFor="let user of users;">
-    <div *ngFor="let group of user.squads">
-      <a *ngIf="group.name "routerLink="/users/detail/{{user.id}}"> {{user.givenname}} {{user.surename}}</a>
-    </div>
+
+<b>Team members</b>
+<div *ngFor="let user of users;">
+  <div *ngFor="let group of user.squads">
+    <a *ngIf="group.name "routerLink="/users/detail/{{user.id}}"> {{user.givenname}} {{user.surename}}</a>
   </div>
+</div>
 
 
   <div *ngIf="data">

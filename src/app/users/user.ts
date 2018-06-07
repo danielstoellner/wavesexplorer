@@ -1,4 +1,4 @@
-import {Group} from "../groups/group";
+import {Group} from '../groups/group';
 
 export class User {
   id: number;
@@ -7,4 +7,5 @@ export class User {
   username: string;
   address: string;
   squads: Group[];
+
 }
