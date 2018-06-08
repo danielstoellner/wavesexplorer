@@ -14,7 +14,18 @@
       Currency *:
     </div>
     <div class="ui-grid-col-10">
-      <input #currency placeholder="currency"/>
+      <input type="text" name="currency" list="currency" #currency placeholder="currency"/>
+<datalist id="currency">
+  <option value="Waves" ></option>
+  <option value="Kepler Token" ></option>
+  <option value="Bitcoin" ></option>
+  <option value="Ethereum" ></option>
+  <option value="Ripple" ></option>
+  <option value="IOTA" ></option>
+  <option value="Tronix" ></option>
+  <option value="ICON" ></option>
+</datalist>
+
     </div>
   </div>
 </div>
