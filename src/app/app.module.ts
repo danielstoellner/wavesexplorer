@@ -48,6 +48,8 @@ import { UserimportComponent } from './userimport/userimport.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import {TabViewModule} from 'primeng/tabview';
 import {DialogModule} from 'primeng/dialog';
+import { GroupStatisticComponent } from './groups/group-statistic/group-statistic.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import {DialogModule} from 'primeng/dialog';
     AssetComponent,
     TransactionComponent,
     UserimportComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    GroupStatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ import {DialogModule} from 'primeng/dialog';
     ChartModule,
     TabViewModule,
     DialogModule,
+    DropdownModule,
   ],
   providers: [
     MessageService,

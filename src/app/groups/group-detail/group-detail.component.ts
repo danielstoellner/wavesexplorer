@@ -17,7 +17,7 @@ import {SettingsService} from '../../common/settings.service';
 export class GroupDetailComponent implements OnInit {
   @Input()
   group: Group;
-  users: User[];
+  users: User[] = [];
   addresses: Address[] = [];
   data: any;
   loading: boolean;
@@ -27,7 +27,6 @@ export class GroupDetailComponent implements OnInit {
     private wavesApiService: WavesApiService,
     private backendApiService: BackendApiService,
     private location: Location,
-    private settingsService: SettingsService,
   ) {
   }
 
@@ -38,8 +37,7 @@ export class GroupDetailComponent implements OnInit {
   refresh() {
     this.loading = true;
     setTimeout(() => {
-      this.getGroup();
-      this.getUsers().then(() => this.getAddresses()).then(() => this.loadChart());
+      this.getGroup().then(() => this.getUsers());
 
       this.loading = false;
     }, 1000);
@@ -47,49 +45,28 @@ export class GroupDetailComponent implements OnInit {
 
   async getGroup() {
     const id = + this.route.snapshot.paramMap.get('id');
+
     const result: Group = await this.backendApiService.getGroupPromise(id);
     this.group = result;
   }
 
+  /**
+   * get Users from Group by id
+   * push found item to array
+   * @returns {Promise<void>}
+   */
   async getUsers() {
-    console.log('1 GET USER');
     const result: User[] = await this.backendApiService.getUsersPromise();
-    this.users = result;
 
-  }
-
-  async getAddresses(){
-    console.log('2 GET ADDRESSES');
-    var i : number;
-    for(let user of this.users){
-      var result: Address = await this.wavesApiService.getBalancePromise(user.address);
-      console.log(result);
-      this.addresses.push(result);
-      i++;
-      console.log(user.address);
-    }
-    this.getNames();
-    this.getBalances();
-  }
-
-  getNames(): string[]{
-    console.log("getNames");
-    var names: string[] = [];
-    for(let user of this.users){
-      names.push(user.givenname);
-    }
-    console.log(names);
-    return names;
-  }
-
-  getBalances(): number[]{
-    console.log("getBalance");
-    var balances: number[] = [];
-    for(let address of this.addresses){
-      balances.push(address.available);
-    }
-    console.log(balances);
-    return balances;
+    result.forEach(user => {
+      if (user.squads.length > 0){
+        user.squads.forEach(group => {
+          if(group.id === this.group.id){
+            this.users.push(user);
+          }
+        });
+      }
+    });
   }
 
   goBack(): void {
@@ -104,61 +81,5 @@ export class GroupDetailComponent implements OnInit {
   delete(): void {
     const result = this.backendApiService.deleteGroup(this.group).subscribe();
     this.goBack();
-  }
-
-  loadChart(): void {
-    console.log('3 LOAD CHART');
-    var use: string[] =[];
-    var dataBalance: number[] = [];
-    setTimeout(() => {
-      var i: number;
-      let list: Array<string>
-      if (this.users == null) {
-        console.log("no users");
-      } else {
-        for (i = 0; i < this.users.length; i++) {
-          if (this.users[i].squads != null && this.users[i].squads.length >= 1) {
-            if (this.users[i].squads[0].id == this.group.id) {
-
-              use.push(this.users[i].givenname.toString());
-              dataBalance.push(this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator);
-
-              console.log(this.users[i].givenname.toString() + ' ' + (this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator));
-            }
-          }
-        }
-        this.data = {
-          labels: use,
-          datasets: [
-            {
-              data: dataBalance,
-              backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56',
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56'
-              ],
-              hoverBackgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56',
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56'
-              ]
-            }]
-        };
-      }
-    }, 1000);
   }
 }
