@@ -11,10 +11,12 @@ import {BackendApiService} from '../common/backend-api.service';
 })
 export class UsersComponent implements OnInit {
   users: User[];
+  selectedUser: User;
   msgs: Message[] = [];
   stacked: boolean;
   loading: boolean;
   display: boolean = false;
+  displayDelete: boolean = false;
 
   constructor(
     private backendApiService: BackendApiService
@@ -64,16 +66,27 @@ export class UsersComponent implements OnInit {
     this.refresh();
   }
 
+  delete(id: number): void {
+    const result = this.backendApiService.deleteUser(this.selectedUser).subscribe();
+    this.displayDelete = false;
+    this.refresh();
+  }
+
   toggle() {
     this.stacked = !this.stacked;
   }
 
-  selectUser(user: User) {
-    this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'User Select', detail: 'Vin: '});
-  }
-
   showDialog() {
     this.display = true;
+  }
+
+  showDialogDelete(id: number) {
+    this.getUser(id).then(() => console.log(this.selectedUser));
+    this.displayDelete = true;
+  }
+
+  async getUser(id: number) {
+    const result: User = await this.backendApiService.getUserPromise(id);
+    this.selectedUser = result;
   }
 }

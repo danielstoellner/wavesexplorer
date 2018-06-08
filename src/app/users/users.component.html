@@ -1,4 +1,4 @@
-<h1>Members Managment list</h1>
+<h1>User and group settings</h1>
 
 <p-tabView>
   <p-tabPanel header="Users" leftIcon="fa-user">
@@ -47,6 +47,14 @@
       </p-footer>
     </p-dialog>
 
+    <p-dialog *ngIf="selectedUser" header="Delete user {{selectedUser.surename}}" [(visible)]="displayDelete" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200">
+      <span>Are you sure you want to delete the user?</span>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="delete()" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="displayDelete=false" label="No"></button>
+      </p-footer>
+    </p-dialog>
+
     <button type="text" (click)="showDialog()" pButton icon="fa-plus-square" label="Add new user"></button>
     <button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toogle View" icon="fa-list"></button>
 
@@ -60,6 +68,13 @@
       <p-column styleClass="col-button" [style]="{'width':'50px'}">
         <ng-template let-row="rowData" pTemplate="body">
           <button routerLink="/users/detail/{{row.id}}" type="button" pButton (click)="selectUser()" icon="fa-edit"></button>
+        </ng-template>
+      </p-column>
+      <p-column styleClass="col-button" [style]="{'width':'50px'}">
+        <ng-template let-row="rowData" pTemplate="body">
+
+          <button type="button" (click)="showDialogDelete(row.id)" pButton icon="fa-trash-o" class="ui-button-danger"></button>
+
         </ng-template>
       </p-column>
       <p-column field="givenname" header="First name" [sortable]="true" [style]="{'width':'200px'}"></p-column>
@@ -82,6 +97,7 @@
     <app-groups></app-groups>
   </p-tabPanel>
   <p-tabPanel header="Statistics" leftIcon="fa-bar-chart">
+    <app-group-statistic></app-group-statistic>
 
   </p-tabPanel>
   <p-tabPanel header="User Import" leftIcon="fa-cloud-upload">

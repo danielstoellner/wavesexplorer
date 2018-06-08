@@ -4,7 +4,8 @@
   <button pButton type="button" (click)="delete(group)" label="Delete Group"  class="ui-button-danger"></button>
 </div>
   <p><button (click)="goBack()">go back</button></p>
-  <table>
+
+  <table *ngIf="group">
     <tr>
       <th align="left" width="10px">Details</th>
       <th></th>
@@ -32,14 +33,13 @@
   </table>
 <br>
 
+
 <b>Team members</b>
 <div *ngFor="let user of users;">
-  <div *ngFor="let group of user.squads">
     <a *ngIf="group.name "routerLink="/users/detail/{{user.id}}"> {{user.givenname}} {{user.surename}}</a>
-  </div>
 </div>
 
 
-  <div *ngIf="data">
+<div *ngIf="data">
     <p-chart type="pie" [data]="data"></p-chart>
-  </div>
+</div>
