@@ -19,9 +19,11 @@ export class GroupStatisticComponent implements OnInit {
   selectedGroup: Group;
   group: Group;
   users: User[] = [];
-  addresses: Address[] = [];
   data: any;
+  dataTransactions: any;
   loading: boolean;
+  stat2: any;
+  transactionTypes: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,21 +32,22 @@ export class GroupStatisticComponent implements OnInit {
     private location: Location,
     private settingsService: SettingsService,
   ) {
+
   }
 
   ngOnInit() {
     this.loading = true;
     setTimeout(() => {
-      this.getGroups();
-      this.refresh();
+      this.getGroups().then(() => this.refresh());
       this.loading = false;
     }, 1000);
   }
 
   refresh() {
     this.users = [];
-    this.getUsers().then(() => this.getAddresses()).then(() => this.loadChart());
+    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()));
   }
+
 
   async getGroups() {
     const result: Group[] = await this.backendApiService.getGroups().toPromise();
@@ -75,17 +78,20 @@ export class GroupStatisticComponent implements OnInit {
 
   async getAddresses(){
     console.log('2 GET ADDRESSES');
-    var i : number;
     for(let user of this.users){
       var result: Address = await this.wavesApiService.getBalancePromise(user.address);
-      console.log(result);
-      this.addresses.push(result);
-      i++;
-      console.log(user.address);
+      user.addressDetails = result;
+    }
+  }
+
+  async getTransactions(){{
+    for(let user of this.users){
+      var result = await this.wavesApiService.getTransactions(user.address,10000).toPromise();
+      user.transactions = result;
     }
     this.getNames();
     this.getBalances();
-  }
+  }}
 
   getNames(): string[]{
     console.log("getNames");
@@ -93,17 +99,15 @@ export class GroupStatisticComponent implements OnInit {
     for(let user of this.users){
       names.push(user.givenname);
     }
-    console.log(names);
     return names;
   }
 
   getBalances(): number[]{
     console.log("getBalance");
     var balances: number[] = [];
-    for(let address of this.addresses){
-      balances.push(address.available);
+    for(let user of this.users){
+      balances.push(user.addressDetails.available);
     }
-    console.log(balances);
     return balances;
   }
 
@@ -121,21 +125,26 @@ export class GroupStatisticComponent implements OnInit {
     this.goBack();
   }
 
+  loadCharts():void{
+    console.log("loadCharts");
+    this.loadChart();
+    this.loadChartTransactions();
+  }
+
   loadChart(): void {
     var use: string[] =[];
     var dataBalance: number[] = [];
+
     setTimeout(() => {
-      var i: number;
-      let list: Array<string>
       if (this.users == null) {
         console.log("no users");
       } else {
-        for (i = 0; i < this.users.length; i++) {
-          use.push(this.users[i].givenname.toString());
-          dataBalance.push(this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator);
-          console.log(this.users[i].givenname.toString() + ' ' + (this.addresses[i].available.valueOf() / this.settingsService.currencyMuliplicator));
+        this.users.forEach(user => {
+          use.push(user.givenname.toString());
+          dataBalance.push(user.addressDetails.available.valueOf() / this.settingsService.currencyMuliplicator);
+          //console.log(user.givenname.toString() + ' ' + (user.addressDetails.available.valueOf() / this.settingsService.currencyMuliplicator));
+        })
 
-        }
         this.data = {
           labels: use,
           datasets: [
@@ -169,5 +178,52 @@ export class GroupStatisticComponent implements OnInit {
         };
       }
     }, 1000);
+  }
+
+  loadChartTransactions(): void {
+    var use: string[] =[];
+    var users: any = [];
+
+    this.settingsService.transferTypes.forEach((string) => use.push(string.toString()));
+
+    this.users.forEach(entry => {
+      var tempData: any = {
+        label: 'eins',
+        backgroundColor: 'rgba(179,181,198,0.2)',
+        borderColor: 'rgba(179,181,198,1)',
+        pointBackgroundColor: 'rgba(179,181,198,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(179,181,198,1)',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      };
+      tempData.label= entry.givenname;
+      var color: number = entry.id%6;
+
+      var count:number = 0;
+      entry.transactions.forEach(tr =>
+        {
+            for(count; count < 100; count ++){
+              if (tr[count] != null){
+                tempData.data[tr[count].type-1] = tempData.data[tr[count].type-1] + 1;
+              } else {
+                break;
+              }
+            }
+        })
+
+      tempData.backgroundColor = this.settingsService.colorMap.get(color);
+      tempData.pointBackgroundColor = this.settingsService.colorMap.get(color);
+      tempData.borderColor = this.settingsService.colorMap.get(color);
+      tempData.pointBorderColor = this.settingsService.colorMap.get(color);
+      tempData.pointHoverBackgroundColor = this.settingsService.colorMap.get(color);
+      tempData.pointHoverBorderColor = this.settingsService.colorMap.get(color);
+      users.push(tempData);
+    });
+
+    this.transactionTypes = {
+      labels: use,
+      datasets: users
+    };
   }
 }
