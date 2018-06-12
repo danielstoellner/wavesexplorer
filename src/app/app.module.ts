@@ -46,6 +46,10 @@ import {WavesApiService} from './common/waves-api.service';
 import {BackendApiService} from './common/backend-api.service';
 import { UserimportComponent } from './userimport/userimport.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import {TabViewModule} from 'primeng/tabview';
+import {DialogModule} from 'primeng/dialog';
+import { GroupStatisticComponent } from './groups/group-statistic/group-statistic.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     AssetComponent,
     TransactionComponent,
     UserimportComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    GroupStatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +98,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     GrowlModule,
     PickListModule,
     ChartModule,
+    TabViewModule,
+    DialogModule,
+    DropdownModule,
   ],
   providers: [
     MessageService,

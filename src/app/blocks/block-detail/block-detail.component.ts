@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import {Block} from '../block';
 import {Transaction} from '../transaction';
 import {WavesApiService} from '../../common/waves-api.service';
+import {SettingsService} from '../../common/settings.service';
 
 @Component({
   selector: 'app-block-detail',
@@ -17,30 +18,30 @@ export class BlockDetailComponent implements OnInit {
   transactions: Transaction[];
   transactions1: Transaction[];
   loading: boolean;
-  priceListMap : Map<number, string> = new Map<number, string>();
+  priceListMap: Map<number, string> = new Map<number, string>();
 
   constructor(
     private route: ActivatedRoute,
     private wavesApiService: WavesApiService,
-    private location: Location
+    private location: Location,
+    private settingsService: SettingsService
   ) {
-    this.priceListMap.set(1,  "Genesis transaction");
-    this.priceListMap.set(2,  "Payment transaction");
-    this.priceListMap.set(3,  "Issue transaction");
-    this.priceListMap.set(4,  "Transfer transaction");
-    this.priceListMap.set(5,  "Reissue transaction");
-    this.priceListMap.set(6, "Burn transaction");
-    this.priceListMap.set(7, "Exchange transaction");
-    this.priceListMap.set(8,  "Lease transaction");
-    this.priceListMap.set(9,  "Lease cancel transaction");
-    this.priceListMap.set(10, "Create alias transaction");
-    this.priceListMap.set(11, "Make asset name unique transaction");
+    this.priceListMap.set(1, 'Genesis transaction');
+    this.priceListMap.set(2, 'Payment transaction');
+    this.priceListMap.set(3, 'Issue transaction');
+    this.priceListMap.set(4, 'Transfer transaction');
+    this.priceListMap.set(5, 'Reissue transaction');
+    this.priceListMap.set(6, 'Burn transaction');
+    this.priceListMap.set(7, 'Exchange transaction');
+    this.priceListMap.set(8, 'Lease transaction');
+    this.priceListMap.set(9, 'Lease cancel transaction');
+    this.priceListMap.set(10, 'Create alias transaction');
+    this.priceListMap.set(11, 'Make asset name unique transaction');
   }
 
   ngOnInit(): void {
     this.getBlock();
     console.log(this.block);
-
   }
 
    async getBlock() {
@@ -72,7 +73,7 @@ export class BlockDetailComponent implements OnInit {
 
   getTransactions(){
     for(let transaction in this.block.transactions){
-      console.log(transaction)
+      console.log(transaction);
     }
   }
 

@@ -1,0 +1,69 @@
+<div class="ui-g">
+  <div class="ui-g-6">
+    <div *ngIf="groups">
+      <h3 *ngIf="selectedGroup">Group Statistics {{selectedGroup ? selectedGroup.name : 'none'}}</h3>
+      <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" (onChange)="refresh()" [style]="{'width':'150px'}" placeholder="Select a Group" optionLabel="name"></p-dropdown>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <h3>Team members</h3>
+    <div *ngIf="users">
+      <div *ngFor="let user of users;">
+        <li><a *ngIf="selectedGroup.name "routerLink="/users/detail/{{user.id}}"> {{user.givenname}} {{user.surename}}</a></li>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-6">
+    <p-chart type="radar" [data]="transactionTypes"></p-chart>
+  </div>
+  <div class="ui-g-6">
+    <p-chart type="pie" [data]="data"></p-chart>
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-6">
+    <p-chart type="pie" [data]="data"></p-chart>
+  </div>
+  <div class="ui-g-6">
+    <div *ngIf="data">
+      <p-chart type="pie" [data]="data"></p-chart>
+    </div>
+  </div>
+</div>
+
+<!--
+<table *ngIf="groups">
+  <tr>
+    <th align="left" width="10px">Details</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
+      Currency
+    </td>
+    <td>
+      <div class="ui-inputgroup">
+        <input type="text" size="20" pInputText [(ngModel)]="group.currency" placeholder="Currency">
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Name
+    </td>
+    <td>
+      <div class="ui-inputgroup">
+        <input type="text" size="20" pInputText [(ngModel)]="group.name" placeholder="Name">
+      </div>
+    </td>
+  </tr>
+</table>
+<br>
+
+!-->
+
+
+
+

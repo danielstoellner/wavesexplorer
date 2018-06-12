@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Message} from "primeng/api";
-import {User} from "../users/user";
-import {Group} from "./group";
-import {WavesApiService} from "../common/waves-api.service";
-import {BackendApiService} from "../common/backend-api.service";
+import {Message} from 'primeng/api';
+import {User} from '../users/user';
+import {Group} from './group';
+import {WavesApiService} from '../common/waves-api.service';
+import {BackendApiService} from '../common/backend-api.service';
 
 @Component({
   selector: 'app-groups',
@@ -16,6 +16,7 @@ export class GroupsComponent implements OnInit {
   msgs: Message[] = [];
   stacked: boolean;
   loading: boolean;
+  display: boolean = false;
 
   constructor(
     private backendApiService: BackendApiService
@@ -25,7 +26,6 @@ export class GroupsComponent implements OnInit {
 
     this.getGroups();
     //this.refresh();
-
   }
 
   refresh() {
@@ -50,6 +50,7 @@ export class GroupsComponent implements OnInit {
       .subscribe(group => {
         this.groups.push(group);
       });
+    this.display = false;
     this.refresh();
   }
 
@@ -60,5 +61,9 @@ export class GroupsComponent implements OnInit {
   selectGroup(group: Group) {
     this.msgs = [];
     this.msgs.push({severity:'info', summary:'Group Select', detail:'Vin: '});
+  }
+
+  showDialog() {
+    this.display = true;
   }
 }

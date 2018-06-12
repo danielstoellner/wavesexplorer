@@ -41,6 +41,15 @@ export class BackendApiService {
   }
 
   /** GET user by id. Will 404 if id not found */
+  getUserPromise(id: number): Promise<User> {
+    const url = `${this.settingService.wavesBackendAPI + this.usersUrl}/${id}`;
+    return this.http.get<User>(url).pipe(
+      tap(user => this.log(`fetched user id=${id}`)),
+      catchError(this.handleError<User>(`getUser id=${id}`))
+    ).toPromise();
+  }
+
+  /** GET user by id. Will 404 if id not found */
   getUser(id: number): Observable<User> {
     const url = `${this.settingService.wavesBackendAPI + this.usersUrl}/${id}`;
     return this.http.get<User>(url).pipe(

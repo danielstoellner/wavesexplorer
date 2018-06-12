@@ -83,7 +83,7 @@ export class StatisticsComponent implements OnInit {
     const transactionTypes = new Chart(this.transactionTypes, {
       type: 'doughnut',
       data: {
-        labels: ['Genesis', 'Payment', 'Issue', 'Transfer', 'Reissue', 'Burn', 'Exchange', 'Lease', 'Lease cancel', 'Create alias', ' Make asset name unique'],
+        labels: ['Genesis (1)', 'Payment (2)', 'Issue (3)', 'Transfer (4)', 'Reissue (5)', 'Burn (6)', 'Exchange (7)', 'Lease (8)', 'Lease cancel (9)', 'Create alias (10)', ' Make asset name unique (11)'],
         datasets: [{
           label: 'Avg. Blocksize',
           data: [5, 5, 10, 60, 2, 2, 6, 1, 3, 3, 3],
