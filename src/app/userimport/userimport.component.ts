@@ -30,7 +30,10 @@ export class UserimportComponent implements OnInit {
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-      /* save data */
+      /**
+       * Daten aus dem Excel sheet auslesen und speichern
+       * Es wird für jede Zeile im Excel ein neuer User angelegt
+       */
       this.data = XLSX.utils.sheet_to_json(ws, {header: 1});
       console.log(this.data);
 

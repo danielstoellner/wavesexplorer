@@ -27,6 +27,9 @@ export class AddressDetailComponent implements OnInit {
     this.reload();
   }
 
+  /**
+   * Aktualisieren der Seite
+   */
   reload(){
     this.loading = true;
     setTimeout(() => {
@@ -36,6 +39,9 @@ export class AddressDetailComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * Liefert die Adresse zurück
+   */
   getAddress() {
     const address = this.route.snapshot.paramMap.get('address');
     this.addr = address;
@@ -43,15 +49,25 @@ export class AddressDetailComponent implements OnInit {
       .subscribe(address => this.address = address);
   }
 
+  /**
+   * Liefert Transaktionen zu einer bestimmten Adresse zurück
+   */
   getTransactions() {
     this.wavesApiService.getTransactions(this.addr, 100)
       .subscribe(transaction => this.transactions = transaction);
   }
 
+  /**
+   * "Zurück"-Button
+   */
   goBack(): void {
     this.location.back();
   }
 
+  /**
+   * Zu einer anderen Adresse gehen
+   * @param {string} address
+   */
   goTo(address: string): void {
     this.reload();
   }

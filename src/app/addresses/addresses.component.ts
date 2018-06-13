@@ -18,6 +18,9 @@ export class AddressesComponent implements OnInit {
     this.getAddresses();
   }
 
+  /**
+   * Liefert die Addresse zurück
+   */
   getAddresses(): void {
     this.wavesApiService.getAddresses()
       .subscribe(address => this.addresses = address);
