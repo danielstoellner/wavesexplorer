@@ -4,6 +4,7 @@ import {Location} from "@angular/common";
 import {Address} from "../address";
 import {Transaction} from "../../blocks/transaction";
 import {WavesApiService} from "../../common/waves-api.service";
+import {SettingsService} from "../../common/settings.service";
 
 @Component({
   selector: 'app-address-detail',
@@ -21,6 +22,7 @@ export class AddressDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private wavesApiService: WavesApiService,
     private location: Location,
+    private settings: SettingsService,
   ) { }
 
   ngOnInit() {
@@ -70,5 +72,10 @@ export class AddressDetailComponent implements OnInit {
    */
   goTo(address: string): void {
     this.reload();
+  }
+
+
+  getSettings(): SettingsService {
+    return this.settings;
   }
 }

@@ -11,4 +11,7 @@ export class User {
   addressDetails: Address;
   squads: Group[];
   transactions: Transaction[];
+  assetsTransfered: Map<string, number> = new Map<string, number>();
+  assetsReceived: Map<string, number> = new Map<string, number>();
+
 }

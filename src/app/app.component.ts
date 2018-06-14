@@ -28,8 +28,6 @@ export class AppComponent {
       {label: 'Blocks', icon: 'fa-server', routerLink: ['/blocks']},
       {label: 'Peers', icon: 'fa-tasks', routerLink: ['/peer']},
       {label: 'Users', icon: 'fa-user', routerLink: ['/users']},
-      {label: 'User Import', icon: 'fa-file-excel-o', routerLink: ['/userimport']},
-      {label: 'Groups', icon: 'fa-group', routerLink: ['/groups']},
       {label: 'Statistics', icon: 'fa-pie-chart', routerLink: ['/statistics']},
       {label: 'Wallet', icon: 'fa-credit-card', url: 'https://beta.wavesplatform.com/'},
       {label: 'Node', icon: 'fa-database', routerLink: ['/addresses']}

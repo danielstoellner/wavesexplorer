@@ -12,19 +12,19 @@
     </tr>
     <tr>
       <td align=right>Regular balance</td>
-      <td>{{address.regular/100000000 | number:'0.0-10'}}</td>
+      <td>{{address.regular/getSettings().currencyMuliplicator | number:'0.0-10'}}</td>
     </tr>
     <tr>
       <td align="right">Generating balance</td>
-      <td>{{address.generating/100000000 | number:'0.0-4'}}</td>
+      <td>{{address.generating/getSettings().currencyMuliplicator | number:'0.0-4'}}</td>
     </tr>
     <tr>
       <td align="right">Available balance</td>
-      <td>{{address.available/100000000 | number:'0.0-10'}}</td>
+      <td>{{address.available/getSettings().currencyMuliplicator | number:'0.0-10'}}</td>
     </tr>
     <tr>
       <td align="right">Effective balance</td>
-      <td>{{address.effective/100000000 | number:'0.0-4'}}</td>
+      <td>{{address.effective/getSettings().currencyMuliplicator | number:'0.0-4'}}</td>
     </tr>
   </table>
 </div>
@@ -59,7 +59,11 @@
         <a routerLink="/addresses/detail/{{row[col.field]}}" (click)="goTo(row[col.field])">{{row[col.field] | slice:0:8}}...</a>
       </ng-template>
     </p-column>
-    <p-column field="amount" header="amount"[style]="{'width':'100px', 'text-align': 'left'}"></p-column>
+    <p-column field="amount" header="amount"[style]="{'width':'100px', 'text-align': 'left'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        {{row[col.field]/getSettings().currencyMuliplicator | number:'0.0-10'}}
+      </ng-template>
+    </p-column>
   </p-dataTable>
 </div>
 <br>
