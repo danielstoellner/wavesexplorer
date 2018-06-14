@@ -50,6 +50,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {DialogModule} from 'primeng/dialog';
 import { GroupStatisticComponent } from './groups/group-statistic/group-statistic.component';
 import {DropdownModule} from 'primeng/dropdown';
+import { GroupTransferComponent } from './groups/group-transfer/group-transfer.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import {DropdownModule} from 'primeng/dropdown';
     TransactionComponent,
     UserimportComponent,
     StatisticsComponent,
-    GroupStatisticComponent
+    GroupStatisticComponent,
+    GroupTransferComponent
   ],
   imports: [
     BrowserModule,
