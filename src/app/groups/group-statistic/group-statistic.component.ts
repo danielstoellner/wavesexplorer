@@ -24,6 +24,7 @@ export class GroupStatisticComponent implements OnInit {
   group: Group;
   users: User[] = [];
   data: any;
+  data2: any;
   loading: boolean;
   transactionTypes: any;
   assetsId: string[];
@@ -48,7 +49,7 @@ export class GroupStatisticComponent implements OnInit {
 
   refresh() {
     this.users = [];
-    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()).then(() => this.loadAssets()));
+    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()).then(() => this.loadAssets()).then(() => this.loadChart2()));
   }
 
 
@@ -281,5 +282,39 @@ export class GroupStatisticComponent implements OnInit {
       labels: use,
       datasets: users
     };
+  }
+
+  /**
+   * load pie chart
+   */
+  loadChart2(): void {
+    var use: string[] = [];
+    var dataBalance: number[] = [];
+    var dataBackgroundColor: string[] = [];
+
+    if (this.users == null) {
+      console.log("no users");
+    } else {
+      this.users.forEach(user => {
+        var color: number = user.id%6;
+        use.push(user.givenname.toString());
+        var transfered: number = 0;
+        if(user.assetsTransfered.get(this.selectedAsset.assetId)){
+          transfered = user.assetsTransfered.get(this.selectedAsset.assetId);
+        }
+        dataBalance.push((user.assetsReceived.get(this.selectedAsset.assetId)-transfered) / this.settingsService.currencyMuliplicator);
+        dataBackgroundColor.push(this.settingsService.colorMap.get(color));
+      })
+
+      this.data2 = {
+        labels: use,
+        datasets: [
+          {
+            data: dataBalance,
+            backgroundColor: dataBackgroundColor,
+            hoverBackgroundColor: dataBackgroundColor,
+          }]
+      };
+    }
   }
 }
