@@ -1,0 +1,81 @@
+<div class="ui-g">
+  <div class="ui-g-4">
+    <div *ngIf="groups">
+      <h3 *ngIf="selectedGroup">Group Statistics {{selectedGroup ? selectedGroup.name : 'none'}}</h3>
+      <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" (onChange)="refresh()" [style]="{'width':'200px'}" placeholder="Select a Group" optionLabel="name"></p-dropdown>
+    </div>
+    <div *ngIf="users">
+      <h3 *ngIf="selectedUser">Selected User {{selectedUser ? selectedUser.givenname : 'none'}}</h3>
+      <p-dropdown [options]="usersDesc" [(ngModel)]="selectedUser" (onChange)="refreshUser()" [style]="{'width':'200px'}" placeholder="Select a User" optionLabel="givenname"></p-dropdown>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <div *ngIf="selectedUser">
+      <h3>Address {{ selectedUser.address }}</h3>
+    </div>
+
+    <div *ngIf="address">
+      <table *ngIf="address" width="100%">
+        <tr>
+          <th width="50%">Details</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td align=right>Regular balance</td>
+          <td>{{address.regular/getSettings().currencyMuliplicator | number:'0.0-10'}}</td>
+        </tr>
+        <tr>
+          <td align="right">Generating balance</td>
+          <td>{{address.generating/getSettings().currencyMuliplicator | number:'0.0-4'}}</td>
+        </tr>
+        <tr>
+          <td align="right">Available balance</td>
+          <td>{{address.available/getSettings().currencyMuliplicator | number:'0.0-10'}}</td>
+        </tr>
+        <tr>
+          <td align="right">Effective balance</td>
+          <td>{{address.effective/getSettings().currencyMuliplicator | number:'0.0-4'}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="transactions">
+  <p-dataTable [value]="transactions[0]" [rows]="25" [paginator]="true" sortField="height" [sortOrder]="-1" [pageLinks]="2" [responsive]="true">
+    <p-header>List of Transfers</p-header>
+    <p-column field="id" header="Id" [sortable]="true" [style]="{'width':'150px'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        <a routerLink="/transaction/{{row[col.field]}}">{{row[col.field] | slice:0:8}}...</a>
+      </ng-template>
+    </p-column>
+    <p-column field="type" header="Type" [style]="{'width':'20px'}"></p-column>
+    <p-column field="timestamp" header="Date" [sortable]="true" [style]="{'width':'100px'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        {{row[col.field] | date:'dd. MMMM yyyy @ HH:mm'}}
+      </ng-template>
+    </p-column>
+    <p-column field="sender" header="Sender"[style]="{'width':'150px'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        <a routerLink="/addresses/detail/{{row[col.field]}}" (click)="goTo(row[col.field])">{{getNameFromUser(row[col.field])}}</a>
+      </ng-template>
+    </p-column>
+    <p-column field="" header=""[style]="{'width':'3%'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        &#x21E8;
+      </ng-template>
+    </p-column>
+    <p-column field="recipient" header="Recipient"[style]="{'width':'150px', 'text-align': 'left'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        <a routerLink="/addresses/detail/{{row[col.field]}}" (click)="goTo(row[col.field])">{{getNameFromUser(row[col.field])}}</a>
+      </ng-template>
+    </p-column>
+    <p-column field="amount" header="Amount"[style]="{'width':'100px', 'text-align': 'left'}">
+      <ng-template let-col let-row='rowData' pTemplate type="body">
+        {{row[col.field]/getSettings().currencyMuliplicator | number:'0.0-10'}}
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>
+<br>
