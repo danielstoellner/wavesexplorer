@@ -7,6 +7,7 @@ import {BackendApiService} from "../../common/backend-api.service";
 import {Address} from "../../addresses/address";
 import {Group} from "../group";
 import {WavesApiService} from "../../common/waves-api.service";
+import {Asset} from "../../asset/asset";
 
 @Component({
   selector: 'app-group-statistic',
@@ -16,14 +17,16 @@ import {WavesApiService} from "../../common/waves-api.service";
 export class GroupStatisticComponent implements OnInit {
   @Input()
   groups: Group[] = [];
+  assets: Asset[] = [];
+  assetDesc: Asset[] = [];
   selectedGroup: Group;
+  selectedAsset: Asset;
   group: Group;
   users: User[] = [];
   data: any;
-  dataTransactions: any;
   loading: boolean;
-  stat2: any;
   transactionTypes: any;
+  assetsId: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +48,7 @@ export class GroupStatisticComponent implements OnInit {
 
   refresh() {
     this.users = [];
-    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()));
+    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()).then(() => this.loadAssets()));
   }
 
 
@@ -84,14 +87,14 @@ export class GroupStatisticComponent implements OnInit {
     }
   }
 
-  async getTransactions(){{
+  async getTransactions(){
     for(let user of this.users){
       var result = await this.wavesApiService.getTransactions(user.address,10000).toPromise();
       user.transactions = result;
     }
     this.getNames();
     this.getBalances();
-  }}
+  }
 
   getNames(): string[]{
     console.log("getNames");
@@ -131,55 +134,74 @@ export class GroupStatisticComponent implements OnInit {
     this.loadChartTransactions();
   }
 
-  loadChart(): void {
-    var use: string[] =[];
-    var dataBalance: number[] = [];
+  /**
+   * load Asset map
+   * @returns {Promise<void>}
+   */
+  async loadAssets(){
+    this.assets = [];
+    console.log("loadAssets");
+    for (let user of this.users) {
+      if (user.assetsTransfered.size > 0) {
+        var assetEntry: string = user.assetsTransfered.entries().next().value[0].toString();
+        var result: Asset = await this.wavesApiService.getAssetById(assetEntry).toPromise();
 
-    setTimeout(() => {
-      if (this.users == null) {
-        console.log("no users");
-      } else {
-        this.users.forEach(user => {
-          use.push(user.givenname.toString());
-          dataBalance.push(user.addressDetails.available.valueOf() / this.settingsService.currencyMuliplicator);
-          //console.log(user.givenname.toString() + ' ' + (user.addressDetails.available.valueOf() / this.settingsService.currencyMuliplicator));
-        })
-
-        this.data = {
-          labels: use,
-          datasets: [
-            {
-              data: dataBalance,
-              backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56',
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56'
-              ],
-              hoverBackgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56',
-                '#FF6384',
-                '#36A2EB',
-                '#76ebb2',
-                '#eb56e6',
-                '#FFCE56'
-              ]
-            }]
-        };
+        // if not in map insert
+        if(this.assets.includes(result)){
+          console.log("bereits vorhanden");
+        } else {
+          this.assets.push(result);
+        }
       }
-    }, 1000);
+    }
+    this.loadAssetDesc();
+    if(this.assetDesc.length >= 0) {
+      this.selectedAsset = this.assetDesc[0];
+    }
   }
 
+  loadAssetDesc() {
+    console.log("loadAssetDesc");
+    this.assetDesc = [];
+
+    this.assets.forEach(asset => {
+      this.assetDesc.push(asset);
+    });
+  }
+
+  /**
+   * load pie chart
+   */
+  loadChart(): void {
+    var use: string[] = [];
+    var dataBalance: number[] = [];
+    var dataBackgroundColor: string[] = [];
+
+    if (this.users == null) {
+      console.log("no users");
+    } else {
+      this.users.forEach(user => {
+        var color: number = user.id%6;
+        use.push(user.givenname.toString());
+        dataBalance.push(user.addressDetails.available.valueOf() / this.settingsService.currencyMuliplicator);
+        dataBackgroundColor.push(this.settingsService.colorMap.get(color));
+      })
+
+      this.data = {
+        labels: use,
+        datasets: [
+          {
+            data: dataBalance,
+            backgroundColor: dataBackgroundColor,
+            hoverBackgroundColor: dataBackgroundColor,
+          }]
+      };
+    }
+  }
+
+  /**
+   * load transaction chart
+   */
   loadChartTransactions(): void {
     var use: string[] =[];
     var users: any = [];
@@ -199,18 +221,52 @@ export class GroupStatisticComponent implements OnInit {
       };
       tempData.label= entry.givenname;
       var color: number = entry.id%6;
+      entry.assetsTransfered = new Map<string, number>();
+      entry.assetsReceived = new Map<string, number>();
 
       var count:number = 0;
+      var calc: number = 0;
       entry.transactions.forEach(tr =>
-        {
-            for(count; count < 100; count ++){
-              if (tr[count] != null){
-                tempData.data[tr[count].type-1] = tempData.data[tr[count].type-1] + 1;
+      {
+        // check all last 100 transaction
+        for(count; count < 100; count ++){
+          // if user has transactions
+          if (tr[count] != null){
+            tempData.data[tr[count].type-1] = tempData.data[tr[count].type-1] + 1;
+            // if transaction has different assets
+            if (tr[count].assetId != null && tr[count].recipient == entry.address){
+              console.log("Resived from: " + tr[count].assetId, tr[count].amount);
+              // is asset is assigned at user update value
+              if(entry.assetsReceived.has(tr[count].assetId)){
+                console.log("calc plus because exists" + entry.assetsReceived.get(tr[count].assetId) +"+" + tr[count].amount);
+                calc = 0;
+                calc = entry.assetsReceived.get(tr[count].assetId) + tr[count].amount;
+                entry.assetsReceived.set(tr[count].assetId, calc);
+                console.log("after cals " + entry.assetsReceived.get(tr[count].assetId));
               } else {
-                break;
+                entry.assetsReceived.set(tr[count].assetId, tr[count].amount);
+              }
+
+            }
+            if (tr[count].assetId != null && tr[count].sender == entry.address){
+              console.log("Transfer from "+  tr[count].assetId, tr[count].amount);
+              // is asset is assigned at user update value
+              if(entry.assetsTransfered.has(tr[count].assetId)){
+                console.log("calc plus because exists" + entry.assetsTransfered.get(tr[count].assetId) +"+" + tr[count].amount);
+                calc = 0;
+                calc = entry.assetsTransfered.get(tr[count].assetId) + tr[count].amount;
+                entry.assetsTransfered.set(tr[count].assetId, calc);
+                console.log("after cals " + entry.assetsTransfered.get(tr[count].assetId));
+              } else {
+                entry.assetsTransfered.set(tr[count].assetId, tr[count].amount);
               }
             }
-        })
+
+          } else {
+            break;
+          }
+        }
+      })
 
       tempData.backgroundColor = this.settingsService.colorMap.get(color);
       tempData.pointBackgroundColor = this.settingsService.colorMap.get(color);
