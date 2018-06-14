@@ -20,14 +20,18 @@
 </div>
 <div class="ui-g">
   <div class="ui-g-6">
+    <h4>Transactions</h4>
     <p-chart type="radar" [data]="transactionTypes"></p-chart>
   </div>
   <div class="ui-g-6">
+    <h4>Waves</h4>
     <p-chart type="pie" [data]="data"></p-chart>
   </div>
 </div>
 <div class="ui-g">
   <div class="ui-g-6">
+    <h4 *ngIf="selectedAsset">{{selectedAsset ? selectedAsset.name : 'none'}}</h4>
+    <p-chart type="polarArea" [data]="data2"></p-chart>
   </div>
   <div class="ui-g-6">
     <div *ngIf="data">
