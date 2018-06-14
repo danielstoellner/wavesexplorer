@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import {BackendApiService} from '../common/backend-api.service';
 import {User} from '../users/user';
+import {Group} from "../groups/group";
 
 @Component({
   selector: 'app-userimport',
@@ -10,13 +11,23 @@ import {User} from '../users/user';
 })
 export class UserimportComponent implements OnInit {
   data: any;
+  groups: Group[]= [];
 
   constructor(private backendApiService: BackendApiService) {}
 
   ngOnInit() {
+    this.getGroups();
+  }
+  async getGroups() {
+    console.log("++++++++++++++++++++++++++++++++++")
+    const result: Group[] = await this.backendApiService.getGroups().toPromise();
+    this.groups = result;
+    console.log(this.groups);
+    console.log(this.groups.length)
   }
 
   onFileChange(evt: any) {
+
     /* wire up file reader */
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) { throw new Error('Cannot use multiple files'); }
