@@ -1,8 +1,8 @@
 <input type="file" (change)="onFileChange($event)" multiple="false" />
 
-<table>
+<table *ngIf="users">
   <tr>
-    <td><h2>Imported Data</h2></td>
+    <td><h3>Selected File</h3></td>
   </tr>
   <tr *ngFor="let user of data">
     <td>{{user[0]}}</td>
@@ -12,3 +12,40 @@
     <td>{{user[4]}}</td>
   </tr>
 </table>
+<div *ngIf="users">
+  <p-button (onClick)="addNewUser()" label="Import"></p-button>
+</div>
+<!--
+<div *ngIf="users">
+  <h3>Checkbox Selection</h3>
+  <p-table [columns]="cols" [value]="users" [(selection)]="selectedUser" dataKey="vin">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 2.25em">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td>
+          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <ul>
+        <li *ngFor="let user of selectedUser" style="text-align: left">
+          {{user.givenname + ' - ' + user.surename + ' - ' + user.address}}
+        </li>
+      </ul>
+    </ng-template>
+  </p-table>
+</div>
+!-->

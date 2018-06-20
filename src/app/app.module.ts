@@ -51,6 +51,7 @@ import {DialogModule} from 'primeng/dialog';
 import { GroupStatisticComponent } from './groups/group-statistic/group-statistic.component';
 import {DropdownModule} from 'primeng/dropdown';
 import { GroupTransferComponent } from './groups/group-transfer/group-transfer.component';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { GroupTransferComponent } from './groups/group-transfer/group-transfer.c
     TabViewModule,
     DialogModule,
     DropdownModule,
+    FileUploadModule,
   ],
   providers: [
     MessageService,

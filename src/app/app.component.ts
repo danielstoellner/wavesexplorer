@@ -27,7 +27,7 @@ export class AppComponent {
        label: 'Home', icon: 'fa-home', routerLink: ['/dashboard']},
       {label: 'Blocks', icon: 'fa-server', routerLink: ['/blocks']},
       {label: 'Peers', icon: 'fa-tasks', routerLink: ['/peer']},
-      {label: 'Users', icon: 'fa-user', routerLink: ['/users']},
+      {label: 'Users & Groups', icon: 'fa-user-circle', routerLink: ['/users']},
       {label: 'Statistics', icon: 'fa-pie-chart', routerLink: ['/statistics']},
       {label: 'Wallet', icon: 'fa-credit-card', url: 'https://beta.wavesplatform.com/'},
       {label: 'Node', icon: 'fa-database', routerLink: ['/addresses']}

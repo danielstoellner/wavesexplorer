@@ -25,9 +25,10 @@ export class GroupStatisticComponent implements OnInit {
   users: User[] = [];
   data: any;
   data2: any;
+  data3: any;
   loading: boolean;
   transactionTypes: any;
-  assetsId: string[];
+  options: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +50,7 @@ export class GroupStatisticComponent implements OnInit {
 
   refresh() {
     this.users = [];
-    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()).then(() => this.loadAssets()).then(() => this.loadChart2()));
+    this.getUsers().then(() => this.getAddresses()).then(() => this.getTransactions().then(() => this.loadCharts()).then(() => this.loadAssets()).then(() => this.loadChart2()).then(() => this.loadChart3()));
   }
 
 
@@ -316,5 +317,56 @@ export class GroupStatisticComponent implements OnInit {
           }]
       };
     }
+  }
+
+  loadChart3(): void{
+    var userString: string[] = [];
+    var res: number[] = [];
+    var trans: number[] = [];
+    var dataBackgroundColor: string[] = [];
+
+    this.users.forEach(user => {
+      var color: number = user.id%6;
+      userString.push(user.givenname);
+      if(user.assetsReceived.get(this.selectedAsset.assetId) != null){
+        res.push(user.assetsReceived.get(this.selectedAsset.assetId)/this.settingsService.currencyMuliplicator);
+      }else {
+        res.push(0);
+      }
+      if(user.assetsTransfered.get(this.selectedAsset.assetId) != null){
+        trans.push(user.assetsTransfered.get(this.selectedAsset.assetId)/this.settingsService.currencyMuliplicator);
+      }else {
+        trans.push(0);
+      }
+      dataBackgroundColor.push(this.settingsService.colorMap.get(color));
+    })
+    this.data3 = {
+      labels: userString,
+      datasets: [
+        {
+          label: 'received',
+          backgroundColor: dataBackgroundColor,
+          borderColor: dataBackgroundColor,
+          data: res
+        },
+        {
+          label: 'transfered',
+          backgroundColor: dataBackgroundColor,
+          borderColor: dataBackgroundColor,
+          data: trans
+        }
+      ]
+    }
+    this.options = {
+      title: {
+        display: true,
+        text: 'received | transfered',
+        fontSize: 12
+      },
+      legend: {
+        display: false,
+        position: 'bottom'
+      }
+    };
   }
 }
