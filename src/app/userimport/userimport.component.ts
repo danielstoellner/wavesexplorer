@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {BackendApiService} from '../common/backend-api.service';
 import {User} from '../users/user';
 import {Group} from '../groups/group';
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-userimport',
@@ -83,9 +84,12 @@ export class UserimportComponent implements OnInit {
         newuser.surename = this.data[i][2];
         newuser.address = this.data[i][3];
         newuser.squads = [];
-        var group: Group = new Group();
-        group.name = this.data[i][4];
-        newuser.squads.push(group);
+        if (!(this.data[i][4] === undefined)) {
+          console.log(this.data[i][4]);
+          var group: Group = new Group();
+          group.name = this.data[i][4];
+          newuser.squads.push(group);
+        }
         this.users.push(newuser);
       }
     };
@@ -120,10 +124,8 @@ export class UserimportComponent implements OnInit {
         newuser.givenname = this.data[i][1];
         newuser.surename = this.data[i][2];
         newuser.address = this.data[i][3];
-
-
+        
         // insert new user
-
         this.backendApiService.addUser(newuser).toPromise();
         this.getUsers();
 
@@ -164,14 +166,16 @@ export class UserimportComponent implements OnInit {
     this.users.forEach(user => {
       var exists: boolean = false;
       this.availablegroups.forEach(group => {
-        if (user.squads[0].name === group.name) {
+        if (user.squads[0] === undefined){
+          exists = true;
+        } else if (user.squads[0].name === group.name) {
           console.log(group);
           user.squads[0] = group;
           exists = true;
         }
       })
 
-      if(exists){
+      if (exists) {
         //group exist
         this.backendApiService.addUser(user).toPromise();
       } else {
