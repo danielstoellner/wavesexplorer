@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as Chart from 'chart.js';
+import {HttpClient} from '@angular/common/http';
+import {DataBlock} from './datablock';
+import {SelectItem} from 'primeng/api';
 
 
 @Component({
@@ -18,27 +21,163 @@ export class StatisticsComponent implements OnInit {
   stat3: any;
   transactionsPerBlock: any;
 
-  constructor() {
+  selectedTime: any;
+  timeframe: string;
+  times: SelectItem[];
+
+  statistics: DataBlock[];
+
+  url: string;
+
+  /* -------------------------------------
+    Vars for chart data
+   --------------------------------------- */
+
+  totalTransactionValues: number[] = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+  avgBlockSizeValues: number[] = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+  transactionTypeValues: number[] = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+  avgTransactionsPerBlockValues: number[] = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+  labelValues: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+
+  constructor(private  httpClient: HttpClient) {
+    this.url  = 'http://localhost:8080/statistics/';
+    this.timeframe  = 'Year';
+    this.times = [];
+    this.times.push({label: 'all', value: 'all'});
+    this.times.push({label: 'Year', value: 'Year'});
+    this.times.push({label: 'Month', value: 'Month'});
+    this.times.push({label: 'Week', value: 'Week'});
+    this.selectedTime = this.times.find(x => x.value.code === 'Year');
   }
 
   ngOnInit() {
-    this.generateStatistics();
+    setTimeout(() => {
+      this.getDataBlocks().then(
+        () => this.setValueTypes().then(
+          () => this.setValueTotal().then(
+            () => this.generateStatistics().then(
+              () => this.generateStatistics()))));
+    }, 2000);
   }
 
-  /**
-   * erstellt Statistiken
-   */
-  generateStatistics() {
-    // Total Transactions
+  refresh() {
+    this.timeframe = this.selectedTime;
+    setTimeout(() => {
+      this.getDataBlocks().then(
+        () => this.setValueTypes().then(
+          () => this.setValueTotal().then(
+            () => this.generateStatistics().then(
+              () => this.generateStatistics()))));
+    }, 2000);
+  }
+
+  async getDataBlocks() {
+    // This line took about 892309years of my life to figure out ;(
+    const result: DataBlock[] = await this.httpClient.get<DataBlock[]>(this.url + 'get' + this.timeframe).toPromise();
+
+    if (result.length !== 0) {
+      this.statistics = result;
+    } else {
+      this.statistics = [new DataBlock()];
+    }
+  }
+
+  async setValueTypes() {
+
+    this.transactionTypeValues = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ];
+    const statVal = this.statistics;
+    // Set value of transactions per type
+    statVal.forEach(value => {
+      this.transactionTypeValues[0] += value[4];
+      this.transactionTypeValues[1] += value[5];
+      this.transactionTypeValues[2] += value[6];
+      this.transactionTypeValues[3] += value[7];
+      this.transactionTypeValues[4] += value[8];
+      this.transactionTypeValues[5] += value[9];
+      this.transactionTypeValues[6] += value[10];
+      this.transactionTypeValues[7] += value[11];
+      this.transactionTypeValues[8] += value[12];
+      this.transactionTypeValues[9] += value[13];
+      this.transactionTypeValues[10] += value[14];
+    });
+  }
+
+  async setValueTotal() {
+
+    const statVal = this.statistics;
+    // Set value of total transactions
+    let nrOfLabels = 0;
+    let divider = 0;
+
+    switch (this.timeframe) {
+      case 'Year':
+        nrOfLabels = 12;
+        divider = statVal.length / nrOfLabels;
+        this.labelValues = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.totalTransactionValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgTransactionsPerBlockValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgBlockSizeValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        break;
+      case 'Month':
+        nrOfLabels = 4;
+        divider = statVal.length / nrOfLabels;
+        this.labelValues = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        this.totalTransactionValues = [0, 0 , 0 , 0 ];
+        this.avgTransactionsPerBlockValues = [0, 0 , 0 , 0 ];
+        this.avgBlockSizeValues = [0, 0 , 0 , 0 ];
+        break;
+      case 'Week':
+        nrOfLabels = 7;
+        divider = statVal.length / nrOfLabels;
+        this.labelValues = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        this.totalTransactionValues = [0, 0 , 0 , 0 , 0 , 0 , 0 ];
+        this.avgTransactionsPerBlockValues = [0, 0 , 0 , 0 , 0 , 0 , 0 ];
+        this.avgBlockSizeValues = [0, 0 , 0 , 0 , 0 , 0 , 0 ];
+        break;
+      case 'all':
+        nrOfLabels = 12;
+        divider = statVal.length / nrOfLabels;
+        this.labelValues = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.totalTransactionValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgTransactionsPerBlockValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgBlockSizeValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        break;
+      default:
+        nrOfLabels = 12;
+        divider = statVal.length / nrOfLabels;
+        this.labelValues = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.totalTransactionValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgTransactionsPerBlockValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        this.avgBlockSizeValues = [0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0];
+        break;
+    }
+
+    const beginn = this.statistics[0][0];
+    const blockAmount = 99;
+
+    statVal.forEach(value => {
+      this.totalTransactionValues[Math.round((value[0] - beginn) / divider)] += value[3];
+      this.avgBlockSizeValues[Math.round((value[0] - beginn) / divider)] += Math.round( value[1] / blockAmount );
+      this.avgTransactionsPerBlockValues[Math.round((value[0] - beginn) / divider)] += Math.round( value[3] / blockAmount );
+    });
+
+    console.log('Finished loading total transactions');
+
+  }
+
+  async generateStatistics() {
+
     this.stat = document.getElementById('totalTransactions');
     this.totalTransaction = this.stat.getContext('2d');
+
     const totalTransactions = new Chart(this.totalTransaction, {
       type: 'line',
       data: {
-        labels: ['May 16', 'Jun 16', 'Jul 16', 'Aug 16', 'Sep 16', 'Oct 16', 'Nov 16', 'Dec 16', 'Jan 17', 'Feb 17', 'Mar 17', 'Apr 17', 'May 17', 'Jun 17', 'Jul 17', 'Aug 17', 'Sep 17', 'Oct 17', 'Nov 17', 'Dec 17', 'Jan 18'],
+        labels: this.labelValues,
         datasets: [{
           label: 'Total Transactions',
-          data: [1000, 1500, 2100, 2700, 3000, 4000, 4900, 6000, 7100, 8400, 10000, 13000, 20000, 50000, 90000, 300000, 1000000, 5000000, 6000000, 7000000, 8000000],
+          data: this.totalTransactionValues,
           backgroundColor: 'rgba(123, 209, 106, 0.1)',
           borderColor: 'rgba(123, 209, 106, 1)'
         }]
@@ -56,13 +195,14 @@ export class StatisticsComponent implements OnInit {
     // AVG Blocksize
     this.stat1 = document.getElementById('AVGBlocksize');
     this.avgBlocksize = this.stat1.getContext('2d');
+
     const AVGBlocksize = new Chart(this.avgBlocksize, {
       type: 'line',
       data: {
-        labels: ['May 16', 'Jun 16', 'Jul 16', 'Aug 16', 'Sep 16', 'Oct 16', 'Nov 16', 'Dec 16', 'Jan 17', 'Feb 17', 'Mar 17', 'Apr 17', 'May 17', 'Jun 17', 'Jul 17', 'Aug 17', 'Sep 17', 'Oct 17', 'Nov 17', 'Dec 17', 'Jan 18'],
+        labels: this.labelValues,
         datasets: [{
           label: 'Avg. Blocksize',
-          data: [0.1, 0.4, 0.3, 0.5, 0.5, 0.6, 0.6, 0.8, 0.6, 0.7, 0.8, 0.8, 0.9, 0.7, 0.5, 0.6, 0.7, 0.75, 0.9, 1, 1.3],
+          data: this.avgBlockSizeValues,
           backgroundColor: 'rgba(123, 209, 106, 0.1)',
           borderColor: 'rgba(123, 209, 106, 1)'
         }]
@@ -80,13 +220,17 @@ export class StatisticsComponent implements OnInit {
      */
     this.stat2 = document.getElementById('transactionTypes');
     this.transactionTypes = this.stat2.getContext('2d');
+
     const transactionTypes = new Chart(this.transactionTypes, {
       type: 'doughnut',
       data: {
-        labels: ['Genesis (1)', 'Payment (2)', 'Issue (3)', 'Transfer (4)', 'Reissue (5)', 'Burn (6)', 'Exchange (7)', 'Lease (8)', 'Lease cancel (9)', 'Create alias (10)', ' Make asset name unique (11)'],
+        labels: ['Genesis (1)', 'Payment (2)', 'Issue (3)', 'Transfer (4)'
+          , 'Reissue (5)', 'Burn (6)', 'Exchange (7)', 'Lease (8)', 'Lease cancel (9)'
+          , 'Create alias (10)', ' Make asset name unique (11)'],
         datasets: [{
           label: 'Avg. Blocksize',
-          data: [5, 5, 10, 60, 2, 2, 6, 1, 3, 3, 3],
+          data: this.transactionTypeValues,
+          // data: [5, 5, 10, 60, 2, 2, 6, 1, 3, 3, 3],
           backgroundColor: ['rgba(193, 66, 66, 0.6)',
             'rgba(191, 112, 63, 0.6)',
             'rgba(191, 189, 63, 0.6)',
@@ -116,10 +260,10 @@ export class StatisticsComponent implements OnInit {
     const transactionsPerBlock = new Chart(this.transactionsPerBlock, {
       type: 'line',
       data: {
-        labels: ['May 16', 'Jun 16', 'Jul 16', 'Aug 16', 'Sep 16', 'Oct 16', 'Nov 16', 'Dec 16', 'Jan 17', 'Feb 17', 'Mar 17', 'Apr 17', 'May 17', 'Jun 17', 'Jul 17', 'Aug 17', 'Sep 17', 'Oct 17', 'Nov 17', 'Dec 17', 'Jan 18'],
+        labels: this.labelValues,
         datasets: [{
           label: 'Transactions per Block',
-          data: [5, 50, 99, 30, 45, 20, 80, 90, 69, 27, 60, 80, 100, 90, 40, 60, 50, 95, 80, 50, 87],
+          data: this.avgTransactionsPerBlockValues,
           backgroundColor: 'rgba(123, 209, 106, 0.1)',
           borderColor: 'rgba(123, 209, 106, 1)'
         }]

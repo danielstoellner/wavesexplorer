@@ -3,13 +3,16 @@
 </h1>
 
 <div class="pr-3 pl-3"><i class="la la-filter la-2x"></i></div>
-<select id="stat-period" class="selectpicker show-tick" title="Select Period">
+<!--select id="stat-period" class="selectpicker show-tick" title="Select Period">
   <option value="0" selected>All Time</option>
   <option value="30">30 Days</option>
   <option value="60">60 Days</option>
   <option value="180">180 Days</option>
   <option value="365">1 Year</option>
-</select>
+</select-->
+
+<h3 *ngIf="timeframe">Choose Timeframe</h3>
+<p-dropdown [options]="times" [(ngModel)]="selectedTime" (onChange)="refresh()" [style]="{'width':'200px'}" placeholder="Select timeframe"></p-dropdown>
 
 <table style="width:100%">
   <tr>
