@@ -63,6 +63,7 @@ export class StatisticsComponent implements OnInit {
 
   refresh() {
     this.timeframe = this.selectedTime;
+    this.httpClient.get(this.url + 'refresh');
     setTimeout(() => {
       this.getDataBlocks().then(
         () => this.setValueTypes().then(
